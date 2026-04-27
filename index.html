@@ -15,11 +15,11 @@
             font-family: 'Hind Siliguri', sans-serif;
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            height: 100vh; /* পুরো স্ক্রিন উচ্চতা */
             overflow: hidden;
         }
 
-        /* হেডার ডিজাইন */
+        /* হেডার: লোগো বামে, মেনু ডানে */
         nav {
             display: flex;
             justify-content: space-between;
@@ -48,15 +48,15 @@
             font-size: 0.8rem;
         }
 
-        /* কন্টেন্ট পজিশন - আরও উপরে তোলার জন্য padding-top কমানো হয়েছে */
+        /* মাঝখানের কন্টেন্ট পজিশন */
         main {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* লম্বালম্বিভাবে মাঝখানে রাখার চেষ্টা */
+            justify-content: center;
             align-items: center;
             text-align: center;
-            padding-bottom: 15vh; /* নিচের দিক থেকে চাপ দিয়ে লিখাগুলো উপরে তোলা হয়েছে */
+            padding-bottom: 10vh; /* কিছুটা উপরে তোলার জন্য */
         }
 
         .sub-title {
@@ -86,10 +86,21 @@
             letter-spacing: 1px;
         }
 
+        /* মাদ্রাসার নাম - একদম নিচে এবং স্টাইলিশ */
+        .madrasah-footer {
+            margin-top: auto; /* এটিকে একদম নিচে ঠেলে দেবে */
+            padding-bottom: 30px;
+            font-family: 'Playfair Display', serif; /* ইংরেজি স্টাইলিশ ফন্ট */
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            color: #d4af37;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
         @media (max-width: 600px) {
             .main-title { font-size: 2.2rem; }
-            .nav-links { gap: 10px; }
-            .nav-links a { font-size: 0.7rem; }
+            .madrasah-footer { font-size: 0.75rem; letter-spacing: 1px; }
         }
     </style>
 </head>
@@ -112,9 +123,11 @@
             <span class="title-white">Madrasah</span><span class="title-gold">Note</span>
         </h1>
         <p class="author">By Enayet Karim & Khubaib Ahmad</p>
-
-        <div class="footer-text">MUHAMMADIA JAMIA SHAREEF MADRASAH</div>
     </main>
+
+    <div class="madrasah-footer">
+        MUHAMMADIA JAMIA SHAREEF MADRASAH
+    </div>
 
 </body>
 </html>
