@@ -1,144 +1,177 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madrasah Note</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Cinzel:wght@700&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
-    
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #0a0a0a; 
-            color: #d4af37; 
-            font-family: 'Hind Siliguri', sans-serif;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            width: 100%;
-        }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Madrasah Note</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;600;700&family=Hind+Siliguri:wght@400;500;600&family=Playfair+Display:wght@700;800&family=Cinzel:wght@700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 
-        /* উপরের হেডার - লোগো এক লাইনে এবং ছোট */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background-color: #0a0a0a;
-        }
+<style>
+/* মূল সিএসএস ভ্যারিয়েবল */
+:root {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --border: #222;
+  --text: #e8e4dc;
+  --muted: #666;
+  --accent: #d4af37; /* গোল্ড কালার */
+  --accent-dim: rgba(212, 175, 55, 0.1);
+  --arabic: #a3c4a8;
+}
 
-        .logo {
-            font-family: 'Cinzel', serif;
-            font-size: 1rem; /* ছোট করা হয়েছে */
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-decoration: none;
-            white-space: nowrap; /* এক লাইনে নিশ্চিত করবে */
-        }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { 
+    background: var(--bg); 
+    color: var(--text); 
+    font-family: "Hind Siliguri", sans-serif; 
+    min-height: 100vh; 
+    overflow-x: hidden; 
+}
 
-        /* লোগোর কালার কম্বিনেশন */
-        .logo-white { color: #ffffff; }
-        .logo-gold { color: #d4af37; }
+/* TOP NAVIGATION */
+.topnav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 60px;
+}
+.brand {
+    font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700;
+    text-decoration: none; cursor: pointer;
+}
+.brand-white { color: #ffffff; }
+.brand-gold { color: var(--accent); }
 
-        .nav-links {
-            display: flex;
-            gap: 15px;
-        }
+.nav-links { display: flex; gap: 10px; list-style: none; }
+.nav-links button {
+    padding: 0.5rem 1rem; border-radius: 6px; background: none; border: none;
+    color: var(--muted); font-size: 0.85rem; cursor: pointer; transition: 0.2s;
+}
+.nav-links button:hover { color: #fff; }
+.nav-links button.active { color: var(--accent); background: var(--accent-dim); }
 
-        .nav-links a {
-            color: #888;
-            text-decoration: none;
-            font-size: 0.8rem;
-        }
+/* PAGE CONTENT */
+.page { display: none; padding-top: 60px; min-height: 100vh; }
+.page.active { display: block; }
 
-        /* মাঝখানের কন্টেন্ট এলাকা */
-        main {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; 
-            align-items: center;
-            text-align: center;
-            padding-bottom: 5vh; 
-        }
+/* HOME PAGE STYLES */
+#page-home {
+    display: none; align-items: center; justify-content: center; text-align: center;
+}
+#page-home.active { display: flex; flex-direction: column; }
 
-        .sub-title {
-            font-size: 0.9rem;
-            letter-spacing: 4px;
-            margin-bottom: 10px;
-            color: #d4af37;
-            opacity: 0.8;
-        }
+.home-content { padding-bottom: 10vh; }
+.home-eyebrow { font-size: 0.9rem; letter-spacing: 4px; color: var(--accent); margin-bottom: 10px; opacity: 0.8; }
+.home-title { 
+    font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4rem); 
+    font-weight: 800; margin-bottom: 15px; 
+}
+.home-author { color: #555; font-size: 0.9rem; letter-spacing: 1px; }
 
-        /* মাঝখানের টাইটেল আগের মতো বড় */
-        .main-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem; 
-            font-weight: 800;
-            margin: 0;
-        }
+/* FOOTER FOR HOME */
+.footer-home {
+    position: absolute; bottom: 30px; width: 100%; text-align: center;
+    font-family: 'Playfair Display', serif; font-size: 0.8rem; letter-spacing: 2px; color: var(--accent);
+}
 
-        .title-white { color: #ffffff; }
-        .title-gold { color: #d4af37; }
+/* TORJOMA LAYOUT STYLES (From your file) */
+.torjoma-layout { display: flex; }
+.sidebar {
+    position: fixed; width: 260px; height: calc(100vh - 60px);
+    background: var(--surface); border-right: 1px solid var(--border);
+    overflow-y: auto; z-index: 100;
+}
+.torjoma-main { margin-left: 260px; flex: 1; padding: 2rem 5%; max-width: 900px; }
 
-        .author {
-            margin-top: 15px;
-            color: #555;
-            font-size: 0.9rem;
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 1px;
-        }
+/* নোট কার্ড ও অন্যান্য ডিজাইন */
+.note-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;
+}
+.arabic-text { 
+    direction: rtl; font-size: 1.3rem; color: var(--arabic); 
+    background: rgba(163, 196, 168, 0.05); padding: 1rem; border-radius: 8px; margin: 10px 0;
+}
 
-        /* ফুটার */
-        footer {
-            width: 100%;
-            padding-bottom: 30px;
-            text-align: center;
-        }
-
-        .madrasah-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            color: #d4af37;
-            text-transform: uppercase;
-            margin: 0;
-        }
-
-        @media (max-width: 600px) {
-            .main-title { font-size: 2.2rem; }
-            .nav-links { gap: 10px; }
-            .logo { font-size: 0.85rem; }
-        }
-    </style>
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+    .sidebar { display: none; } /* মোবাইলে সাইডবার লুকানো (সিম্পল রাখার জন্য) */
+    .torjoma-main { margin-left: 0; }
+    .home-title { font-size: 2.2rem; }
+}
+</style>
 </head>
 <body>
 
-    <nav>
-        <a href="#" class="logo">
-            <span class="logo-white">MADRASAH</span> <span class="logo-gold">NOTE</span>
-        </a>
-        <div class="nav-links">
-            <a href="#" class="active">Home</a>
-            <a href="torjoma.html">তরজমা</a>
-            <a href="#">আরবি</a>
-            <a href="#">বাংলা</a>
-            <a href="#">ইংরেজি</a>
-        </div>
-    </nav>
+<nav class="topnav">
+  <div class="brand" onclick="showPage('home')">
+    <span class="brand-white">MADRASAH</span> <span class="brand-gold">NOTE</span>
+  </div>
+  <div class="nav-links">
+    <button id="btn-home" class="active" onclick="showPage('home')">Home</button>
+    <button id="btn-torjoma" onclick="showPage('torjoma')">তরজমা</button>
+  </div>
+</nav>
 
-    <main>
-        <p class="sub-title">মাদ্রাসা নোট সংকলন</p>
-        <h1 class="main-title">
-            <span class="title-white">Madrasah</span> <span class="title-gold">Note</span>
-        </h1>
-        <p class="author">By Enayet Karim & Khubaib Ahmad</p>
-    </main>
+<div class="page active" id="page-home">
+  <div class="home-content">
+    <p class="home-eyebrow">মাদ্রাসা নোট সংকলন</p>
+    <h1 class="home-title">
+        <span style="color:#fff">Madrasah</span> <span style="color:var(--accent)">Note</span>
+    </h1>
+    <p class="home-author">By Enayet Karim & Khubaib Ahmad</p>
+  </div>
+  <div class="footer-home">MUHAMMADIA JAMIA SHAREEF MADRASAH</div>
+</div>
 
-    <footer>
-        <p class="madrasah-name">MUHAMMADIA JAMIA SHAREEF MADRASAH</p>
-    </footer>
+<div class="page" id="page-torjoma">
+  <div class="torjoma-layout">
+    <aside class="sidebar">
+      <div style="padding: 20px; border-bottom: 1px solid var(--border);">
+        <h3 style="color:var(--accent); font-size: 1rem;">সূচিপত্র</h3>
+      </div>
+      <ul style="list-style:none; padding: 10px;">
+        <li style="padding: 10px; border-bottom: 1px solid #222;"><a href="#ayat-1" style="color:#888; text-decoration:none; font-size:0.9rem;">সূরা আল-ফাতিহা</a></li>
+      </ul>
+    </aside>
+
+    <main class="torjoma-main">
+      <h2 style="margin-bottom: 20px; font-family:'Noto Serif Bengali';">তরজমা নোট</h2>
+      
+      <article class="note-card" id="ayat-1">
+        <div style="color:var(--accent); font-weight:bold; margin-bottom:10px;">নোট ১: বিসমিল্লাহ</div>
+        <div class="arabic-text">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        <p style="color:#ccc;">পরম করুণাময় অসীম দয়ালু আল্লাহর নামে (শুরু করছি)।</p>
+      </article>
+
+      </main>
+  </div>
+</div>
+
+<script>
+// পেজ পরিবর্তন করার ফাংশন
+function showPage(pageId) {
+    // সব পেজ লুকাও
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    // সব বাটনের একটিভ মোড সরাও
+    document.querySelectorAll('.nav-links button').forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    // নির্দিষ্ট পেজ দেখাও
+    document.getElementById('page-' + pageId).classList.add('active');
+    // নির্দিষ্ট বাটন হাইলাইট করো
+    document.getElementById('btn-' + pageId).classList.add('active');
+
+    // স্ক্রল উপরে নিয়ে যাও
+    window.scrollTo(0, 0);
+}
+</script>
 
 </body>
-</html>
+        </html>
