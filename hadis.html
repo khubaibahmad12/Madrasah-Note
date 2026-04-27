@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>হাদীছ শরীফ - Madrasah Note</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cinzel:wght@700&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        /* হেডার - একদম হোমের মতো সমান সাইজ */
+        nav {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #000;
+            border-bottom: 1px solid #1a1a1a;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            text-decoration: none;
+            font-size: 1.2rem; /* হোমের সমান সাইজ */
+            font-weight: 700;
+        }
+
+        .logo-white { color: #ffffff; }
+        .logo-gold { color: #d4af37; }
+
+        .nav-right { display: flex; align-items: center; gap: 15px; }
+
+        .back-btn {
+            color: #d4af37;
+            text-decoration: none;
+            font-size: 0.85rem;
+            border: 1px solid #d4af37;
+            padding: 6px 15px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        /* তিন ডট আইকন */
+        .extra-menu { position: relative; cursor: pointer; }
+        .dot-icon {
+            font-size: 24px;
+            color: #d4af37;
+            letter-spacing: 2px;
+            padding: 0 5px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 45px;
+            background: #111;
+            border: 1px solid #d4af37;
+            min-width: 160px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid #222;
+        }
+
+        .dropdown-content a:hover { background: #d4af37; color: #000; }
+
+        /* কন্টেন্ট এরিয়া */
+        .container { max-width: 850px; margin: 30px auto; padding: 0 20px; }
+        
+        .hadis-card {
+            background: #111;
+            border: 1px solid #222;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        h2 { color: #d4af37; font-size: 1.4rem; border-bottom: 1px solid #333; padding-bottom: 10px; }
+
+        .arabic {
+            font-size: 1.4rem;
+            line-height: 2.2;
+            text-align: right;
+            direction: rtl;
+            display: block;
+            margin: 20px 0;
+            color: #fff;
+        }
+
+        .bangla-translation {
+            border-left: 3px solid #d4af37;
+            padding-left: 15px;
+            text-align: justify;
+            color: #ccc;
+        }
+
+        .source {
+            display: block;
+            margin-top: 15px;
+            font-style: italic;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        footer { text-align: center; padding: 40px; color: #555; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">
+            <span class="logo-white">MADRASAH</span> <span class="logo-gold">NOTE</span>
+        </a>
+        
+        <div class="nav-right">
+            <a href="index.html" class="back-btn">ফিরে যান</a>
+            <div class="extra-menu" onclick="toggleDropdown()">
+                <div class="dot-icon">...</div>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="#h1">অনুবাদ</a>
+                    <a href="#">ব্যাখ্যা (শীঘ্রই)</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hadis-card" id="h1">
+            <h2>১নং হাদীছ শরীফ</h2>
+            <span class="arabic">
+             عن حضرت أبي هريرة رضي الله تعالي عنه قال قال رسول الله صلى الله عليه وسلم خلق الله حضرت آدم عليه السلام على صورته طوله ستون ذراعا فلما خلقه قال اذهب فسلم على أولئك النفر وهم نفر من الملائكة جلوس فاستمع ما يحيونك فإنه تحيتك وتحية ذريتك فذهب فقال السلام عليكم فقالوا السلام عليك ورحمة الله قال فزادوه ورحمة الله قال فكل من يدخل الجنة على صورة حضرت ادم عليه السلام وطوله ستون ذراعا فلم يزل الخلق ينقص بعده حتى الآن (متفق عليه)
+            </span>
+            <div class="bangla-translation">
+                <strong>অর্থঃ</strong> অর্থঃ হযরত আবূ হুরাইরা রদ্বিয়াল্লাহু তায়ালা আনহু উনার থেকে বর্ণিত। তিনি বলেন, নূরে মুজাসসাম হাবীবুল্লাহ হুযূর পাক ছল্লাল্লাহু আলাইহি ওয় সাল্লাম তিনি বলেছেন, মহান আল্লাহ পাক তিনি হযরত আদম আলাইহিস সালাম উনাকে উনার মৌলিক আকৃতিতে সৃষ্টি করেছেন। উনার উচ্চতা ছিল ষাট হাত। যখন তিনি উনাকে সৃষ্টি করলেন তখন বললেন, যান! ঐ দল উনার প্রতি সালাম করুন। উনারা হলো হযরত ফেরেশতা আলাইহিমুস সালাম উনাদের অবস্থানরত একটি দল। উনারা আপনার আগমনে কী উত্তর দেন তা মনোযোগ সহকারে শ্রবণ করুন। কেননা, এটিই হবে আপনার এবং আপনার সন্তানদের সালাম। (মহান আল্লাহ পাক উনার নির্দেশ পেয়ে) তিনি গেলেন এবং আসসালামু আলাইকুম বললেন। উনারা প্রত্যুত্তরে বললেন, আসসালামু আলাইকা ওয়া রাহমাতুল্লাহ। নূরে মুজাসসাম হাবীবুল্লাহ হুযূর পাক ছল্লাল্লাহু আলাইহি ওয় সাল্লাম তিনি বললেন, হযরত ফেরেশতা আলাইহিমুস সালাম উনারা উত্তরে "ওয়া রাহমাতুল্লাহ" বাক্য বৃদ্ধি করলেন। অতঃপর তিনি আরো বললেন, যত লোক জান্নাতে প্রবেশ করবে সে হযরত আদম আলাইহিস সালাম উনার আকৃতিতে প্রবেশ করবে এবং তাদের উচ্চতা হবে ষাট হাত। এরপর হতে অদ্যাবধি সৃষ্টিকূলের উচ্চতা ক্রমাগত হ্রাস পেয়ে আসছে।
+সূত্র: এ হাদীসটি ইমাম বুখারী ও মুসলিম রহমতুল্লাহি আলাইহি উনাদের সম্মিলিত বর্ণনা।
+            </div>
+            <span class="source">সূত্র: ইমাম বুখারী ও মুসলিম রহমতুল্লাহি আলাইহি উনাদের সম্মিলিত বর্ণনা।</span>
+        </div>
+    </div>
+
+    <footer>
+        <p>MUHAMMADIA JAMIA SHAREEF MADRASAH</p>
+    </footer>
+
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById("myDropdown");
+            dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.dot-icon')) {
+                document.getElementById("myDropdown").style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
