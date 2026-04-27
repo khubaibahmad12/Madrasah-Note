@@ -15,7 +15,7 @@
         }
 
         nav {
-            padding: 20px 5%;
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -23,75 +23,86 @@
             border-bottom: 1px solid #d4af37;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        .logo { font-family: 'Playfair Display', serif; text-decoration: none; font-size: 1.2rem; }
+        .logo { font-family: 'Playfair Display', serif; text-decoration: none; font-size: 1.1rem; }
         .logo-white { color: #fff; }
         .logo-gold { color: #d4af37; }
+
+        .nav-right { display: flex; align-items: center; gap: 15px; }
 
         .back-btn {
             color: #d4af37;
             text-decoration: none;
-            font-weight: 600;
+            font-size: 0.8rem;
             border: 1px solid #d4af37;
-            padding: 5px 15px;
+            padding: 5px 12px;
             border-radius: 20px;
-            transition: 0.3s;
         }
 
-        .back-btn:hover { background: #d4af37; color: #000; }
-
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
+        /* স্টাইলিশ আইকন মেনু */
+        .extra-menu { position: relative; cursor: pointer; }
+        .dot-icon {
+            font-size: 24px;
+            color: #d4af37;
+            letter-spacing: 2px;
+            line-height: 1;
         }
 
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 40px;
+            background: #111;
+            border: 1px solid #d4af37;
+            min-width: 180px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #222;
+        }
+
+        .dropdown-content a:hover { background: #d4af37; color: #000; }
+
+        /* প্রশ্ন তালিকা পপআপ বা সেকশন */
+        #questionIndex {
+            display: none;
+            background: #161616;
+            border: 1px solid #d4af37;
+            margin: 20px 5%;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .index-title { color: #d4af37; margin-top: 0; border-bottom: 1px solid #333; }
+        .question-list { list-style: none; padding: 0; }
+        .question-list li { margin-bottom: 10px; }
+        .question-list a { color: #ccc; text-decoration: none; font-size: 0.9rem; }
+        .question-list a:hover { color: #d4af37; }
+
+        /* কন্টেন্ট সেকশন */
+        .container { max-width: 900px; margin: 20px auto; padding: 0 20px; }
         .note-section {
             background: #111;
             border: 1px solid #222;
-            padding: 30px;
-            border-radius: 15px;
+            padding: 25px;
+            border-radius: 12px;
             margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            scroll-margin-top: 80px; /* লিঙ্কে ক্লিক করলে যাতে হেডার লেখা ঢেকে না দেয় */
         }
-
-        .note-section h2 {
-            color: #d4af37;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-            margin-top: 0;
-            font-size: 1.5rem;
-        }
-
-        .note-section p { margin-bottom: 15px; text-align: justify; }
-
-        .arabic-text {
-            font-family: serif;
-            font-size: 1.3rem;
-            color: #fff;
-            background: #1a1a1a;
-            padding: 10px;
-            border-radius: 5px;
-            display: block;
-            margin: 10px 0;
-            direction: rtl;
-        }
-
-        .list-style {
-            padding-left: 20px;
-            color: #d4af37;
-        }
-
-        .list-style li { margin-bottom: 8px; color: #ccc; }
-
-        footer { text-align: center; padding: 40px; color: #555; font-size: 0.8rem; }
-
-        @media (max-width: 600px) {
-            .note-section { padding: 20px; }
-            .note-section h2 { font-size: 1.2rem; }
-        }
+        .note-section h2 { color: #d4af37; font-size: 1.3rem; margin-top: 0; }
+        
+        footer { text-align: center; padding: 40px; color: #555; }
     </style>
 </head>
 <body>
@@ -100,82 +111,81 @@
         <a href="index.html" class="logo">
             <span class="logo-white">MADRASAH</span> <span class="logo-gold">NOTE</span>
         </a>
-        <a href="index.html" class="back-btn">ফিরে যান</a>
+        
+        <div class="nav-right">
+            <a href="index.html" class="back-btn">ফিরে যান</a>
+            <div class="extra-menu" onclick="toggleDropdown()">
+                <div class="dot-icon">...</div>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="javascript:void(0)" onclick="showQuestions()">প্রশ্নসমূহ</a>
+                    <a href="#">শানে নুযূল (শীঘ্রই)</a>
+                </div>
+            </div>
+        </div>
     </nav>
 
+    <div id="questionIndex">
+        <h3 class="index-title">সকল প্রশ্ন ও শিরোনাম</h3>
+        <ul class="question-list">
+            <li><a href="#q1" onclick="hideQuestions()">১. মক্কী ও মাদানী সূরার পরিচয়</a></li>
+            <li><a href="#q2" onclick="hideQuestions()">২. তাফসীর ও তা'উয়ীল</a></li>
+            <li><a href="#q3" onclick="hideQuestions()">৩. গাজওয়া জিহাদ কাকে বলে?</a></li>
+            <li><a href="#q15" onclick="hideQuestions()">১৫. ঐতিহাসিক বদর জিহাদ</a></li>
+            </ul>
+        <button onclick="hideQuestions()" style="background:none; border:1px solid #d4af37; color:#d4af37; padding:5px 10px; cursor:pointer; border-radius:5px;">বন্ধ করুন</button>
+    </div>
+
     <div class="container">
-
-        <div class="note-section">
+        <div class="note-section" id="q1">
             <h2>১. মক্কী ও মাদানী সূরার পরিচয়</h2>
-            <p>হিজরতের পূর্বে নাযিল হওয়া সূরাগুলোকে <strong>মক্কী সূরা</strong> বলা হয় (সংখ্যায় ৮৬টি)। আর হিজরতের পর নাযিল হওয়া সূরাগুলোকে <strong>মাদানী সূরা</strong> বলা হয় (সংখ্যায় ২৮টি)।</p>
+            <p>হিজরতের পূর্বে নাযিল হওয়া সূরাগুলোকে মক্কী এবং হিজরতের পর নাযিল হওয়া সূরাগুলোকে মাদানী সূরা বলে...</p>
         </div>
 
-        <div class="note-section">
+        <div class="note-section" id="q2">
             <h2>২. তাফসীর ও তা'উয়ীল</h2>
-            <p>তাফসীর হলো সাধারণ ব্যাখ্যা, যা যে কেউ করতে পারে। কিন্তু তা'উয়ীল হলো পবিত্র কুরআন শরীফের বিশেষ সারমর্ম যা মহান আল্লাহ পাক এবং হুযূর পাক ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম এবং উনাদের মনোনীত ব্যক্তিবর্গই জানেন।</p>
+            <p>তাফসীর হলো সাধারণ ব্যাখ্যা এবং তা'উয়ীল হলো বিশেষ সারমর্ম...</p>
         </div>
 
-        <div class="note-section">
+        <div class="note-section" id="q3">
             <h2>৩. গাজওয়া জিহাদ</h2>
-            <p>যে সমস্ত জিহাদে হুযূর পাক ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম নিজে উপস্থিত ছিলেন সেগুলোকে গাজওয়া বলা হয়। বিশুদ্ধ মতে গাজওয়া ৯টি:</p>
-            <ul class="list-style">
-                <li>১. বদর, ২. ওহুদ, ৩. বনু মুছতালিক, ৪. খন্দক, ৫. হুদায়বিয়া, ৬. খায়বার, ৭. মক্কা বিজয়, ৮. হুনাইন, ৯. তাবুক।</li>
-            </ul>
+            <p>যে সমস্ত জিহাদে হুযূর পাক ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম নিজে উপস্থিত ছিলেন...</p>
         </div>
 
-        <div class="note-section">
-            <h2>৪. অমুসলিমদের বন্ধু হিসেবে গ্রহণের হুকুম</h2>
-            <p>কোনো মুসলমানের জন্য কাফির, ইহুদী বা নাসারাদের ঘনিষ্ঠ বন্ধু হিসেবে গ্রহণ করা জায়েয নেই।</p>
-            <span class="arabic-text">اَلْمَرْأُ مَعَ مَنْ اَحَبَّ</span>
-            <p>অর্থাৎ: যে যাকে মুহব্বত করবে সে তার অন্তর্ভুক্ত হবে। (সূরা আল ইমরান: ১১৮)</p>
-        </div>
-
-        <div class="note-section">
-            <h2>৫. বাইতুল্লাহ শরীফ নির্মাণ ও সংস্কার</h2>
-            <p>পর্যায়ক্রমে নির্মাণকারীগণ হলেন:</p>
-            <ol class="list-style">
-                <li>ফেরেশতাগণ, ২. হযরত আদম (আ.), ৩. হযরত শীষ (আ.), ৪. হযরত ইব্রাহীম (আ.), ৫. আমালিকা গোত্র, ৬. জুরহাম গোত্র, ৭. হযরত কুসাই ইবনে কিলাব, ৮. কুরাঈশরা, ৯. আব্দুল্লাহ ইবনে যুবায়ের (রা.), ১০. হাজ্জাজ বিন ইউছুফ।</li>
-            </ol>
-        </div>
-
-        <div class="note-section">
-            <h2>৭. পবিত্র কুরআনের কিছু তথ্য</h2>
-            <p>সূরা: ১১৪টি, আয়াত: ৬৬৬৬টি, রুকু: ৫৪০টি, মঞ্জিল: ৭টি, পারা: ৩০টি, সিজদাহ আয়াত: ১৪টি।</p>
-        </div>
-
-        <div class="note-section">
-            <h2>৮. সূরা ফাতিহার ১০টি নাম</h2>
-            <ul class="list-style">
-                <li>১. আল-ফাতিহা, ২. উম্মুল কিতাব, ৩. উম্মুল কুরআন, ৪. আস-সাবউল মাছানী, ৫. সূরাতুল হামদ, ৬. সূরাতুছ ছলাত, ৭. সূরাতুশ শিফা, ৮. সূরাতুর রুকইয়াহ, ৯. সূরাতুল আসাস, ১০. আল-ওয়াফিয়াহ।</li>
-            </ul>
-        </div>
-
-        <div class="note-section">
-            <h2>১০. বনী ইসরাঈলের গাভীর ঘটনা</h2>
-            <p>বনী ইসরাঈলে এক খুনের বিচার করতে গিয়ে আল্লাহ পাক একটি বিশেষ গাভী যবেহ করার নির্দেশ দেন। গাভীটি ছিল নিখুঁত এবং হলুদ রঙের। সেটি যবেহ করার পর তার গোশত মৃত ব্যক্তির গায়ে ছোঁয়ালে সে জীবিত হয়ে খুনিকে শনাক্ত করে।</p>
-        </div>
-
-        <div class="note-section">
+        <div class="note-section" id="q15">
             <h2>১৫. ঐতিহাসিক বদর জিহাদ</h2>
-            <p>২য় হিজরীর ১৭ই রমাদ্বান এটি সংঘটিত হয়। মুসলিম সংখ্যা ছিল ৩১৩ এবং কাফির ছিল ১০০০ জন। এতে ১৪ জন মুসলিম শহীদ হন এবং ৭০ জন কাফির মারা যায়।</p>
+            <p>২য় হিজরীর ১৭ই রমাদ্বান এটি সংঘটিত হয়...</p>
         </div>
+    </div>
 
-        <div class="note-section">
-            <h2>১৬. উহুদ জিহাদের বিজয়</h2>
-            <p>উহুদ জিহাদেও মুসলমানরা বিজয়ী হয়েছিলেন। কাফিররা সাময়িক বিশৃঙ্খলা করলেও শেষ পর্যন্ত বিপুল ক্ষয়ক্ষতি নিয়ে পালিয়ে যায়। মুসলমানরা কখনোই কোনো জিহাদে পরাজিত হননি।</p>
-        </div>
+    <footer>
+        <p>MUHAMMADIA JAMIA SHAREEF MADRASAH</p>
+    </footer>
 
-        <div class="note-section">
-            <h2>১৭. আর-রিবা বা সুদ</h2>
-            <p>মূলধনের অতিরিক্ত অংশ গ্রহণ করাকে সুদ বলে। আল্লাহ পাক ইরশাদ করেন:</p>
-            <span class="arabic-text">أَحَلَّ اللّٰهُ الْبَيْعَ وَحَرَّমَ الرِّبٰو</span>
-            <p>সুদ খাওয়া কাট্টা কবীরা গুনাহ। এর ভয়াবহতা সম্পর্কে বলা হয়েছে—একবার সুদ খাওয়া ৩৬ বার যিনা করার চেয়েও বড় গুনাহ।</p>
-        </div>
+    <script>
+        // ড্রপডাউন মেনু টগল
+        function toggleDropdown() {
+            document.getElementById("myDropdown").style.display = 
+            document.getElementById("myDropdown").style.display === "block" ? "none" : "block";
+        }
 
-        <div class="note-section">
-            <h2>১৯. খন্দকের জিহাদ</h2>
-            <p>৬ষ্ঠ হিজরীতে মদীনার চারপাশে ৫০০০ হাত দীর্ঘ পরীখা খনন করা হয়। কাফিররা তা অতিক্রম করতে না পেরে ব্যর্থ হয় এবং আল্লাহর পক্ষ থেকে পাঠানো কঠিন ঝড়-তুফানে তারা শোচনীয়ভাবে পরাজিত হয়ে পালিয়ে যায়।</p>
-        </div>
+        // প্রশ্ন তালিকা দেখানো
+        function showQuestions() {
+            document.getElementById("questionIndex").style.display = "block";
+            document.getElementById("myDropdown").style.display = "none";
+            window.scrollTo(0,0);
+        }
 
+        // প্রশ্ন তালিকা লুকানো
+        function hideQuestions() {
+            document.getElementById("questionIndex").style.display = "none";
+        }
+
+        // মেনুর বাইরে ক্লিক করলে বন্ধ হবে
+        window.onclick = function(event) {
+            if (!event.target.matches('.dot-icon')) {
+                document.getElementById("myDropdown").style.display = "none";
+            }
+        }
+    </script>
 </body>
-</html>
+                    </html>
