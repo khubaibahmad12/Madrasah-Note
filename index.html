@@ -15,7 +15,7 @@
             font-family: 'Hind Siliguri', sans-serif;
             display: flex;
             flex-direction: column;
-            height: 100vh; /* পুরো স্ক্রিন উচ্চতা */
+            height: 100vh;
             overflow: hidden;
         }
 
@@ -48,22 +48,21 @@
             font-size: 0.8rem;
         }
 
-        /* কন্টেন্ট নিচে নামানোর জন্য স্টাইল */
+        /* কন্টেন্ট পজিশন - আরও উপরে তোলার জন্য padding-top কমানো হয়েছে */
         main {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* মাঝখানে আনবে */
+            justify-content: center; /* লম্বালম্বিভাবে মাঝখানে রাখার চেষ্টা */
             align-items: center;
             text-align: center;
-            /* আপনার চাহিদা অনুযায়ী লিখাগুলো নিচে নামানোর জন্য padding-top বাড়ানো হয়েছে */
-            padding-top: 15vh; 
+            padding-bottom: 15vh; /* নিচের দিক থেকে চাপ দিয়ে লিখাগুলো উপরে তোলা হয়েছে */
         }
 
         .sub-title {
             font-size: 0.9rem;
             letter-spacing: 4px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             color: #d4af37;
             opacity: 0.8;
         }
@@ -86,8 +85,6 @@
             font-family: 'Playfair Display', serif;
             letter-spacing: 1px;
         }
-
-        /* এখানে CONTRIBUTED BY এর কোনো কোড রাখা হয়নি, তাই এটি আর আসবে না */
 
         @media (max-width: 600px) {
             .main-title { font-size: 2.2rem; }
