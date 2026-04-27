@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madrasah Note</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a; 
+            color: #d4af37; 
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: #0f0f0f;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links a {
+            color: #888;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 0.8rem;
+        }
+
+        .nav-links a.active {
+            color: #d4af37;
+            background: #1a1a1a;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .sub-title {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .main-title span {
+            color: #fff; 
+        }
+
+        .author {
+            margin-top: 15px;
+            color: #666;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">MADRASAH NOTE</div>
+        <div class="nav-links">
+            <a href="#" class="active">Home</a>
+            <a href="#">কুরআন শরীফ তরজমা</a>
+            <a href="#">হাদীছ শরীফ</a>
+            <a href="#">আরবী ১ম</a>
+            <a href="#">আরবী ২য়</a>
+            <a href="#">বাংলা ১ম</a>
+            <a href="#">আক্বাইদ ও ফিক্বহ</a>
+            <a href="#">বাংলা ২য়</a>
+            <a href="#">ইংরেজি ১ম</a>
+            <a href="#">ইংরেজি ২য়</a>
+            <a href="#">উর্দু</a>
+            <a href="#">ফার্সি</a>
+        </div>
+    </nav>
+
+    <main>
+        <p class="sub-title">মাদ্রাসা নোট সংকলন</p>
+        <h1 class="main-title">Madrasah <span>Note</span></h1>
+        <p class="author">By Enayet Karim & Khubaib Ahmad</p>
+    </main>
+
+</body>
+  </html>
