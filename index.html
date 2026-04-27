@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Madrasah Note</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display:ital,wght@0,700;1,800&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Cinzel:wght@700&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
         body {
@@ -16,23 +16,24 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         nav {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 30px 5%;
+            padding: 25px 5%;
             background-color: #0a0a0a;
             border-bottom: 1px solid #1a1a1a;
-            gap: 20px;
+            gap: 15px;
         }
 
         .logo {
-            font-family: 'Cinzel', serif; /* স্ক্রিনশটের মতো গোল্ডেন লোগো ফন্ট */
-            font-size: 1.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: #d4af37;
             text-transform: uppercase;
         }
@@ -41,20 +42,20 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .nav-links a {
-            color: #444;
+            color: #666;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: 0.3s;
         }
 
         .nav-links a.active {
             color: #d4af37;
             background: #1a150a;
-            padding: 5px 15px;
+            padding: 4px 12px;
             border-radius: 4px;
         }
 
@@ -70,55 +71,53 @@
 
         .sub-title {
             font-size: 1.1rem;
-            letter-spacing: 5px;
-            margin-bottom: 20px;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
             color: #d4af37;
-            font-weight: 400;
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
-        /* হুবহু ইমেজের মতো টাইটেল ডিজাইন */
+        /* টাইটেল ডিজাইন - ঠিক আপনার স্ক্রিনশটের মতো */
         .main-title {
             font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
+            font-size: 4rem;
             font-weight: 800;
             margin: 0;
             line-height: 1.1;
         }
 
         .title-white {
-            color: #ffffff; /* Madrasah অংশটি সাদা */
-            font-style: normal;
+            color: #ffffff; /* Madrasah লেখাটি সাদা হবে */
         }
 
         .title-gold {
-            color: #d4af37; /* Note অংশটি সোনালী */
-            font-style: normal;
-            margin-left: 5px;
+            color: #d4af37; /* Note লেখাটি সোনালী হবে */
+            display: block; /* মোবাইলে Note লেখাটি নিচে দেখাবে */
+            margin-top: 5px;
         }
 
         .author {
-            margin-top: 40px;
+            margin-top: 30px;
             color: #555;
-            font-size: 1rem;
-            letter-spacing: 2px;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
             font-family: 'Playfair Display', serif;
         }
 
-        .contributed {
+        .footer-text {
             margin-top: auto;
-            padding: 40px;
-            font-size: 0.8rem;
+            padding: 30px;
+            font-size: 0.75rem;
             letter-spacing: 3px;
             color: #d4af37;
             text-transform: uppercase;
-            opacity: 0.7;
+            opacity: 0.6;
         }
 
         @media (min-width: 768px) {
             nav { flex-direction: row; justify-content: space-between; }
-            .main-title { font-size: 6.5rem; }
-            .logo { font-size: 1.8rem; }
+            .main-title { font-size: 6rem; }
+            .title-gold { display: inline; margin-left: 10px; }
         }
     </style>
 </head>
@@ -129,7 +128,10 @@
         <div class="nav-links">
             <a href="#" class="active">Home</a>
             <a href="#">তরজমা</a>
-            <a href="#">আরবি</a>
+            <a href="#">হাদীছ শরীফ</a>
+            <a href="#">আরবী ১ম</a>
+            <a href="#">আরবী ২য়</a>
+            <a href="#">আক্বাইদ ও ফিক্বহ</a>
             <a href="#">বাংলা</a>
         </div>
     </nav>
@@ -137,12 +139,12 @@
     <main>
         <p class="sub-title">মাদ্রাসা নোট সংকলন</p>
         <h1 class="main-title">
-            <span class="title-white">Madrasah</span><br>
+            <span class="title-white">Madrasah</span>
             <span class="title-gold">Note</span>
         </h1>
         <p class="author">By Enayet Karim & Khubaib Ahmad</p>
         
-        <div class="contributed">CONTRIBUTED BY</div>
+        <div class="footer-text">CONTRIBUTED BY</div>
     </main>
 
 </body>
