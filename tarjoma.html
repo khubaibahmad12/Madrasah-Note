@@ -6,12 +6,35 @@
     <title>মাদ্রাসা নোট - বিস্তারিত</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        /* কালার ভেরিয়েবল (ডিফল্ট ডার্ক মোড) */
+        :root {
+            --bg-color: #0a0a0a;
+            --nav-bg: #000;
+            --text-main: #e0e0e0;
+            --gold-color: #d4af37;
+            --section-bg: #111;
+            --border-color: #222;
+            --index-bg: #161616;
+        }
+
+        /* লাইট মোড ভেরিয়েবল */
+        [data-theme="light"] {
+            --bg-color: #ffffff;
+            --nav-bg: #f8f8f8;
+            --text-main: #222;
+            --gold-color: #a68926; /* একটু ডার্ক গোল্ড লাইট ব্যাকগ্রাউন্ডের জন্য */
+            --section-bg: #fdfdfd;
+            --border-color: #eee;
+            --index-bg: #f0f0f0;
+        }
+
         body {
             margin: 0;
-            background-color: #0a0a0a;
-            color: #e0e0e0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             font-family: 'Hind Siliguri', sans-serif;
             line-height: 1.8;
+            transition: 0.4s;
         }
 
         nav {
@@ -19,33 +42,41 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #000;
-            border-bottom: 1px solid #d4af37;
+            background: var(--nav-bg);
+            border-bottom: 1px solid var(--gold-color);
             position: sticky;
             top: 0;
             z-index: 1000;
+            transition: 0.4s;
         }
 
         .logo { font-family: 'Playfair Display', serif; text-decoration: none; font-size: 1.1rem; }
-        .logo-white { color: #fff; }
-        .logo-gold { color: #d4af37; }
+        .logo-white { color: var(--text-main); }
+        .logo-gold { color: var(--gold-color); }
 
         .nav-right { display: flex; align-items: center; gap: 15px; }
 
+        /* থিম টগল বাটন স্টাইল */
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 1.2rem;
+            user-select: none;
+            color: var(--gold-color);
+        }
+
         .back-btn {
-            color: #d4af37;
+            color: var(--gold-color);
             text-decoration: none;
             font-size: 0.8rem;
-            border: 1px solid #d4af37;
+            border: 1px solid var(--gold-color);
             padding: 5px 12px;
             border-radius: 20px;
         }
 
-        /* স্টাইলিশ আইকন মেনু */
         .extra-menu { position: relative; cursor: pointer; }
         .dot-icon {
             font-size: 24px;
-            color: #d4af37;
+            color: var(--gold-color);
             letter-spacing: 2px;
             line-height: 1;
         }
@@ -55,54 +86,52 @@
             position: absolute;
             right: 0;
             top: 40px;
-            background: #111;
-            border: 1px solid #d4af37;
+            background: var(--section-bg);
+            border: 1px solid var(--gold-color);
             min-width: 180px;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .dropdown-content a {
-            color: #fff;
+            color: var(--text-main);
             padding: 12px 16px;
             text-decoration: none;
             display: block;
             font-size: 0.9rem;
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .dropdown-content a:hover { background: #d4af37; color: #000; }
+        .dropdown-content a:hover { background: var(--gold-color); color: #000; }
 
-        /* প্রশ্ন তালিকা পপআপ বা সেকশন */
         #questionIndex {
             display: none;
-            background: #161616;
-            border: 1px solid #d4af37;
+            background: var(--index-bg);
+            border: 1px solid var(--gold-color);
             margin: 20px 5%;
             padding: 20px;
             border-radius: 10px;
         }
 
-        .index-title { color: #d4af37; margin-top: 0; border-bottom: 1px solid #333; }
+        .index-title { color: var(--gold-color); margin-top: 0; border-bottom: 1px solid var(--border-color); }
         .question-list { list-style: none; padding: 0; }
         .question-list li { margin-bottom: 10px; }
-        .question-list a { color: #ccc; text-decoration: none; font-size: 0.9rem; }
-        .question-list a:hover { color: #d4af37; }
+        .question-list a { color: var(--text-main); text-decoration: none; font-size: 0.9rem; opacity: 0.8; }
+        .question-list a:hover { color: var(--gold-color); opacity: 1; }
 
-        /* কন্টেন্ট সেকশন */
         .container { max-width: 900px; margin: 20px auto; padding: 0 20px; }
         .note-section {
-            background: #111;
-            border: 1px solid #222;
+            background: var(--section-bg);
+            border: 1px solid var(--border-color);
             padding: 25px;
             border-radius: 12px;
             margin-bottom: 30px;
-            scroll-margin-top: 80px; /* লিঙ্কে ক্লিক করলে যাতে হেডার লেখা ঢেকে না দেয় */
+            scroll-margin-top: 80px;
         }
-        .note-section h2 { color: #d4af37; font-size: 1.3rem; margin-top: 0; }
+        .note-section h2 { color: var(--gold-color); font-size: 1.3rem; margin-top: 0; }
         
-        footer { text-align: center; padding: 40px; color: #555; }
+        footer { text-align: center; padding: 40px; color: #777; }
     </style>
 </head>
 <body>
@@ -113,6 +142,8 @@
         </a>
         
         <div class="nav-right">
+            <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀️</div>
+            
             <a href="index.html" class="back-btn">ফিরে যান</a>
             <div class="extra-menu" onclick="toggleDropdown()">
                 <div class="dot-icon">...</div>
@@ -130,20 +161,8 @@
             <li><a href="#q1" onclick="hideQuestions()">১. পবিত্র মক্কী ও মাদানী সূরা শরীফ উনাদের পরিচয়</a></li>
             <li><a href="#q2" onclick="hideQuestions()">২. তাফসীর ও তা'উয়ীল উনার ব্যাখ্যা</a></li>
             <li><a href="#q3" onclick="hideQuestions()">৩. পবিত্র গাজওয়া জিহাদ উনার পরিচয়</a></li>
-            <li><a href="#q4" onclick="hideQuestions()">৪. কাফিরদের সাথে বন্ধুত্ব সম্পর্কে</a></li>
-            <li><a href="#q5" onclick="hideQuestions()">৫. পবিত্র বাইতুল্লাহ শরীফ নির্মাণ সম্পর্কে</a></li>
-            <li><a href="#q6" onclick="hideQuestions()">৬. পবিত্র কুরআন শরীফ নাযিলের তারতীব</a></li>
-            <li><a href="#q7" onclick="hideQuestions()">৭. পবিত্র কুরআন শরীফ উনার পরিসংখ্যান</a></li>
-            <li><a href="#q8" onclick="hideQuestions()">৮. পবিত্র সূরা ফাতিহা শরীফ উনার নামসমূহ</a></li>
-            <li><a href="#q9" onclick="hideQuestions()">৯. মুত্তাক্বী উনাদের পরিচয়</a></li>
-            <li><a href="#q10" onclick="hideQuestions()">১০. পবিত্র সূরা বাক্বারা শরীফ উনার ঘটনা</a></li>
-            <li><a href="#q11" onclick="hideQuestions()">১১. خليفة (খলীফা) শব্দের অর্থ</a></li>
-            <li><a href="#q12" onclick="hideQuestions()">১২. সুদ হারাম ও বাইতুন নুক্বূদ ব্যবস্থা সম্পর্কে</a></li>
-            <li><a href="#q13" onclick="hideQuestions()">১৩. মুসলমান সর্বশ্রেষ্ঠ সম্প্রদায় সম্পর্কে</a></li>
-            <li><a href="#q14" onclick="hideQuestions()">১৪. সম্মানিত বদর জিহাদ সম্পর্কে</a></li>
-            <li><a href="#q15" onclick="hideQuestions()">১৫. সম্মানিত ওহুদ জিহাদ সম্পর্কে</a></li>
             </ul>
-        <button onclick="hideQuestions()" style="background:none; border:1px solid #d4af37; color:#d4af37; padding:5px 10px; cursor:pointer; border-radius:5px;">বন্ধ করুন</button>
+        <button onclick="hideQuestions()" style="background:none; border:1px solid var(--gold-color); color:var(--gold-color); padding:5px 10px; cursor:pointer; border-radius:5px;">বন্ধ করুন</button>
     </div>
 
     <div class="container">
@@ -156,16 +175,6 @@
             <h2>২. তাফসীর ও তা'উয়ীল</h2>
             <p>তাফসীর হলো সাধারণ ব্যাখ্যা এবং তা'উয়ীল হলো বিশেষ সারমর্ম...</p>
         </div>
-
-        <div class="note-section" id="q3">
-            <h2>৩. গাজওয়া জিহাদ</h2>
-            <p>যে সমস্ত জিহাদে হুযূর পাক ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম নিজে উপস্থিত ছিলেন...</p>
-        </div>
-
-        <div class="note-section" id="q15">
-            <h2>১৫. ঐতিহাসিক বদর জিহাদ</h2>
-            <p>২য় হিজরীর ১৭ই রমাদ্বান এটি সংঘটিত হয়...</p>
-        </div>
     </div>
 
     <footer>
@@ -173,25 +182,46 @@
     </footer>
 
     <script>
-        // ড্রপডাউন মেনু টগল
-        function toggleDropdown() {
-            document.getElementById("myDropdown").style.display = 
-            document.getElementById("myDropdown").style.display === "block" ? "none" : "block";
+        // ডার্ক/লাইট মোড সুইচ ফাংশন
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeToggle = document.getElementById("themeToggle");
+            
+            if (html.getAttribute("data-theme") === "light") {
+                html.removeAttribute("data-theme");
+                themeToggle.innerText = "☀️";
+                localStorage.setItem("theme", "dark");
+            } else {
+                html.setAttribute("data-theme", "light");
+                themeToggle.innerText = "🌙";
+                localStorage.setItem("theme", "light");
+            }
         }
 
-        // প্রশ্ন তালিকা দেখানো
+        // পেজ লোড হওয়ার সময় আগের সেভ করা থিম চেক করা
+        window.onload = function() {
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme === "light") {
+                document.documentElement.setAttribute("data-theme", "light");
+                document.getElementById("themeToggle").innerText = "🌙";
+            }
+        }
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById("myDropdown");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+
         function showQuestions() {
             document.getElementById("questionIndex").style.display = "block";
             document.getElementById("myDropdown").style.display = "none";
             window.scrollTo(0,0);
         }
 
-        // প্রশ্ন তালিকা লুকানো
         function hideQuestions() {
             document.getElementById("questionIndex").style.display = "none";
         }
 
-        // মেনুর বাইরে ক্লিক করলে বন্ধ হবে
         window.onclick = function(event) {
             if (!event.target.matches('.dot-icon')) {
                 document.getElementById("myDropdown").style.display = "none";
@@ -199,4 +229,4 @@
         }
     </script>
 </body>
-                                     </html>
+    </html>
