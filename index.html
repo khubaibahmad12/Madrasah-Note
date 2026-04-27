@@ -15,7 +15,7 @@
             font-family: 'Hind Siliguri', sans-serif;
             display: flex;
             flex-direction: column;
-            height: 100vh; /* পুরো স্ক্রিন উচ্চতা */
+            height: 100vh;
             width: 100%;
         }
 
@@ -56,7 +56,7 @@
             justify-content: center; 
             align-items: center;
             text-align: center;
-            padding-bottom: 5vh; /* মাঝখানের লিখা সামান্য উপরে রাখার জন্য */
+            padding-bottom: 5vh; 
         }
 
         .sub-title {
@@ -67,16 +67,18 @@
             opacity: 0.8;
         }
 
+        /* টাইটেল স্টাইল - এক লাইনে এবং ছোট করা হয়েছে */
         .main-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.8rem; 
+            font-size: 2.4rem; /* আকার কিছুটা ছোট করা হয়েছে */
             font-weight: 800;
             margin: 0;
-            white-space: nowrap;
+            display: flex;
+            gap: 8px; /* দুই শব্দের মাঝে গ্যাপ */
         }
 
-        .title-white { color: #ffffff; }
-        .title-gold { color: #d4af37; margin-left: 10px; }
+        .title-white { color: #ffffff; } /* Madrasah সাদা */
+        .title-gold { color: #d4af37; }  /* Note সোনালী */
 
         .author {
             margin-top: 15px;
@@ -86,7 +88,7 @@
             letter-spacing: 1px;
         }
 
-        /* মাদ্রাসার নাম - একদম নিচে রাখার জন্য */
+        /* ফুটার */
         footer {
             width: 100%;
             padding-bottom: 30px;
@@ -94,8 +96,8 @@
         }
 
         .madrasah-name {
-            font-family: 'Playfair Display', serif; /* ইংরেজি স্টাইলিশ ফন্ট */
-            font-size: 0.9rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.8rem;
             letter-spacing: 2px;
             color: #d4af37;
             text-transform: uppercase;
@@ -103,8 +105,7 @@
         }
 
         @media (max-width: 600px) {
-            .main-title { font-size: 2.2rem; }
-            .madrasah-name { font-size: 0.75rem; letter-spacing: 1px; }
+            .main-title { font-size: 2rem; }
             .nav-links { gap: 10px; }
         }
     </style>
@@ -125,7 +126,8 @@
     <main>
         <p class="sub-title">মাদ্রাসা নোট সংকলন</p>
         <h1 class="main-title">
-            <span class="title-white">Madrasah</span><span class="title-gold">Note</span>
+            <span class="title-white">Madrasah</span>
+            <span class="title-gold">Note</span>
         </h1>
         <p class="author">By Enayet Karim & Khubaib Ahmad</p>
     </main>
