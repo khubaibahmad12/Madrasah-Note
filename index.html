@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Madrasah Note</title>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
             background-color: #0a0a0a; 
             color: #d4af37; 
-            font-family: 'Hind Siliguri', sans-serif; /* বাংলা ফন্ট এখানে সেট করা হয়েছে */
+            font-family: 'Hind Siliguri', sans-serif;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -20,7 +19,7 @@
 
         nav {
             display: flex;
-            flex-direction: column; /* মোবাইলে মেনু সাজানোর জন্য */
+            flex-direction: column;
             align-items: center;
             padding: 20px 5%;
             background-color: #0f0f0f;
@@ -28,13 +27,97 @@
         }
 
         .logo {
-            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif; /* লোগোর ফন্ট পরিবর্তন */
+            font-size: 1.4rem;
             font-weight: 700;
-            text-transform: uppercase;
             letter-spacing: 2px;
-            text-align: center;
+            color: #d4af37;
         }
 
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 5px 10px;
+        }
+
+        .nav-links a.active {
+            color: #d4af37;
+            background: #1a1a1a;
+            border-radius: 5px;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .sub-title {
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            color: #d4af37;
+            font-weight: 300;
+        }
+
+        /* আপনার দেওয়া ইমেজের মতো টাইটেল স্টাইল */
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 0;
+            color: #ffffff; /* Madrasah লেখাটি সাদা হবে */
+        }
+
+        .main-title span {
+            color: #d4af37; /* Note লেখাটি সোনালী হবে */
+            margin-left: 5px;
+        }
+
+        .author {
+            margin-top: 25px;
+            color: #666;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        @media (min-width: 768px) {
+            nav { flex-direction: row; justify-content: space-between; }
+            .main-title { font-size: 5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">MADRASAH NOTE</div>
+        <div class="nav-links">
+            <a href="#" class="active">Home</a>
+            <a href="#">কুরআন তরজমা</a>
+            <a href="#">হাদীছ</a>
+            <a href="#">আরবী</a>
+            <a href="#">বাংলা</a>
+            <a href="#">ইংরেজি</a>
+        </div>
+    </nav>
+    <main>
+        <p class="sub-title">মাদ্রাসা নোট সংকলন</p>
+        <h1 class="main-title">Madrasah <span>Note</span></h1>
+        <p class="author">By Enayet Karim & Khubaib Ahmad</p>
+    </main>
+</body>
+</html>
         .nav-links {
             display: flex;
             flex-wrap: wrap; /* লেখা বেশি হলে নিচের লাইনে চলে আসবে */
