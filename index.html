@@ -4,44 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Madrasah Note</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
         body {
             margin: 0;
             padding: 0;
             background-color: #0a0a0a; 
             color: #d4af37; 
-            font-family: 'Arial', sans-serif;
+            font-family: 'Hind Siliguri', sans-serif; /* বাংলা ফন্ট এখানে সেট করা হয়েছে */
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         nav {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column; /* মোবাইলে মেনু সাজানোর জন্য */
             align-items: center;
             padding: 20px 5%;
             background-color: #0f0f0f;
+            gap: 15px;
         }
 
         .logo {
             font-size: 1.2rem;
-            font-weight: bold;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap; /* লেখা বেশি হলে নিচের লাইনে চলে আসবে */
+            justify-content: center;
+            gap: 10px;
         }
 
         .nav-links a {
             color: #888;
             text-decoration: none;
-            margin-left: 15px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            padding: 5px 8px;
+            transition: 0.3s;
         }
 
         .nav-links a.active {
             color: #d4af37;
             background: #1a1a1a;
-            padding: 5px 10px;
             border-radius: 5px;
         }
 
@@ -52,19 +63,21 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 20px;
         }
 
         .sub-title {
-            font-size: 0.9rem;
-            letter-spacing: 3px;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
             margin-bottom: 10px;
-            opacity: 0.8;
+            font-weight: 300;
         }
 
         .main-title {
-            font-size: 3rem;
-            font-weight: bold;
+            font-size: 3.5rem;
+            font-weight: 700;
             margin: 0;
+            line-height: 1.2;
         }
 
         .main-title span {
@@ -72,9 +85,18 @@
         }
 
         .author {
-            margin-top: 15px;
+            margin-top: 20px;
             color: #666;
             font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* ডেক্সটপের জন্য মেনু ঠিক করা */
+        @media (min-width: 768px) {
+            nav {
+                flex-direction: row;
+                justify-content: space-between;
+            }
         }
     </style>
 </head>
@@ -86,15 +108,9 @@
             <a href="#" class="active">Home</a>
             <a href="#">কুরআন শরীফ তরজমা</a>
             <a href="#">হাদীছ শরীফ</a>
-            <a href="#">আরবী ১ম</a>
-            <a href="#">আরবী ২য়</a>
-            <a href="#">বাংলা ১ম</a>
-            <a href="#">আক্বাইদ ও ফিক্বহ</a>
-            <a href="#">বাংলা ২য়</a>
-            <a href="#">ইংরেজি ১ম</a>
-            <a href="#">ইংরেজি ২য়</a>
-            <a href="#">উর্দু</a>
-            <a href="#">ফার্সি</a>
+            <a href="#">আরবী</a>
+            <a href="#">বাংলা</a>
+            <a href="#">ইংরেজি</a>
         </div>
     </nav>
 
@@ -105,4 +121,4 @@
     </main>
 
 </body>
-  </html>
+</html>
