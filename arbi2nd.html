@@ -1,1 +1,234 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আরবি বিভাগ - Madrasah Note</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Hind+Siliguri:wght@400;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #111;
+            --text-color: #e0e0e0;
+            --border-color: #222;
+            --nav-bg: #000;
+            --gold: #d4af37;
+        }
 
+        [data-theme="light"] {
+            --bg-color: #ffffff;
+            --card-bg: #f5f5f5;
+            --text-color: #1a1a1a;
+            --border-color: #ddd;
+            --nav-bg: #eeeeee;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Hind Siliguri', sans-serif;
+            transition: 0.3s;
+        }
+
+        nav {
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--nav-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; text-decoration: none; }
+        .logo-white { color: var(--text-color); }
+        .logo-gold { color: var(--gold); }
+
+        .nav-right { display: flex; align-items: center; gap: 15px; }
+        .theme-switch { cursor: pointer; font-size: 1.2rem; }
+        .back-btn { color: var(--gold); font-size: 0.8rem; border: 1px solid var(--gold); padding: 5px 12px; border-radius: 20px; text-decoration: none; }
+
+        .container { max-width: 850px; margin: 30px auto; padding: 0 20px; }
+        
+        .section-title {
+            color: var(--gold);
+            border-bottom: 2px solid var(--gold);
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        /* আরবী ফন্ট স্টাইল */
+        .arabic-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            display: block;
+        }
+
+        .essay-para { margin-bottom: 25px; }
+        .essay-head { color: var(--gold); font-weight: bold; font-size: 1.6rem; display: block; margin-bottom: 10px; }
+
+        /* প্রবাদ সেকশন */
+        .proverb-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .toggle-btn {
+            background: var(--gold);
+            color: #000;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .hidden { display: none; }
+
+        footer { text-align: center; padding: 30px; color: #666; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">
+            <span class="logo-white">আরবি</span> <span class="logo-gold">নোট</span>
+        </a>
+        <div class="nav-right">
+            <div class="theme-switch" onclick="switchTheme()" id="theme-icon">☀️</div>
+            <a href="index.html" class="back-btn">হোমে যান</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <h2 class="section-title">১. বড় প্রশ্ন (الأسئلة الطويلة)</h2>
+        <div class="content-card">
+            <p><strong>প্রশ্ন:</strong> আরবী সাহিত্যের গুরুত্ব আলোচনা করো।</p>
+            <p>উত্তর এখানে লিখুন...</p>
+        </div>
+
+        <h2 class="section-title">২. প্রবাদ (الأمثال)</h2>
+        <div class="content-card">
+            <div class="proverb-box">
+                <span class="proverb-text" id="p1">সময়ের মূল্য অনেক।</span>
+                <button class="toggle-btn" onclick="toggleProverb('p1', 'الوقت أغلى من الذهب', 'সময়ের মূল্য অনেক।')">অনুবাদ দেখুন</button>
+            </div>
+            <div class="proverb-box">
+                <span class="proverb-text" id="p2">জ্ঞানই শক্তি।</span>
+                <button class="toggle-btn" onclick="toggleProverb('p2', 'العلم قوة', 'জ্ঞানই শক্তি।')">অনুবাদ দেখুন</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">৩. রচনা (المقال)</h2>
+        <div class="content-card">
+            <center><h3 style="color: var(--gold); font-size: 1.8rem; font-family: 'Amiri';">فَضِيْلَةُ الْعِلْمِ (জ্ঞানের ফজিলত)</h3></center>
+            <hr style="border: 0.5px solid var(--border-color); margin-bottom: 20px;">
+            
+            <div class="arabic-text">
+                <div class="essay-para">
+                    <span class="essay-head">الْمُقَدِّمَةُ :</span>
+                    الْعِلْمُ أَمْرٌ مُهِمْ فِي حَيَاةِ النَّاسِ، وَاللَّهُ سُبْحَانَهُ تَعَالَى فَرَضَ طَلَبَ الْعِلْمِ عَلَى كُلِّ مُسْلِمٍ دَلَّ عَلَيْهِ قَوْلُ النَّبِيِّ عَلَيْهِ السَّلَامُ : طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ وَلَهُ فَضْلٌ عَظِيمٌ وَرُتْبَةٌ عَالِيَةٌ. وَبِهِ يَعْرِفُ النَّاسُ رَبَّهُ الْحَقِيقِيَّ.
+                </div>
+
+                <div class="essay-para">
+                    <span class="essay-head">تَعْرِيفُ الْعِلْمِ :</span>
+                    الْعِلْمُ فِى اللُّغَةِ : الْإِدْرَاكُ وَالْمَعْرِفَةُ وَالْفَهْمُ. وَفِي الْإِصْطِلاحِ : هُوَ نُورٌ يَقْذِفُهُ اللهُ فِي قَلْبِ مَنْ يُحِبُّهُ وَيَعْرِفُ بِهِ حَقَائِقَ الْأَشْيَاءِ.
+                </div>
+
+                <div class="essay-para">
+                    <span class="essay-head">أَقْسَامُ الْعِلْمِ :</span>
+                    يَنْقَسِمُ الْعِلْمُ إِلى قِسْمَيْنِ رَئِيسَيْنِ : (১) عِلْمُ الدِّيْنِ : وَهُوَ الْعِلْمُ الَّذِي يَسْتَمِلُ عَلَى عُلُوْمِ الْقُرْآنِ وَالْحَدِيْثِ وَالْفِقْهِ وَالْعَقَائِدِ وَالتَّوْحِيدِ وَالْعُلُوْمِ الْمُسَاعَدَةِ لِفَهْمِ الْقُرْآنِ وَالْحَدِيْثِ كَالنَّحْوِ وَالصَّرْفِ وَالْبَلَاغَةِ وَغَيْرِهَا. (২) عِلْمُ الدُّنْيَا : هُوَ الْعِلْمُ الَّذِي يَتَعَلَّقُ بِأُمُورِ الدُّنْيَا مَثَلًا : عِلْمُ الطَّبَ وَالْهَنْدَسَةِ وَالْجُغْرَافِيَّةِ وَالْحِسَابِ وَغَيْرِ ذَلِكَ.
+                </div>
+
+                <div class="essay-para">
+                    <span class="essay-head">أَمَيَّةُ الْعِلْم :</span>
+                    لِلْعِلم أهَمِّيَّة بَالِغَةٌ فِي الْحَيَاةِ الْبَشَرِيَّةِ وَهُوَ ذَريعَة الهدَايَةِ وَبِهِ يَعْرِفُ النَّاسُ الْخَيْرَ وَالشَّرُّ وَالْحَقِّ وَالْبَاطِلَ وَهُوَ نِعْمَةٌ نظمى وَثَرْوَةٌ غَالِيَةٌ إنَّهُ يُهَذِّبُ الأَخْلَاقَ وَيَرْفَعُ السَّانَ، وَهُوَ سَبِيل النَّهْضَةِ لِكُلِّ أُمَّةٍ وَوَسِيْلَةُ التَّقَدُّمِ لِكُلِّ فَرْدٍ وَمُجْتَمَعِ.
+                </div>
+
+                <div class="essay-para">
+                    <span class="essay-head">فَضِيْلَةُ الْعِلْمِ :</span>
+                    لِلْعِلْمِ فَضَائِلُ كَثِيرَةٌ أَنْزَلَ اللَّهُ كَثِيرًا مِنَ الْآيَاتِ فِي فَضِيلَةِ الْعِلْمِ قَالَ اللهُ تَعَالَى : "اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ عَلَّمَ الْإِنْسَانَ مَا لَمْ يَعْلَمُ" وَأَيْضًا قَالَ : "يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنْكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَتٍ" وَقَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ : "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيْهِ عِلْمًا سَهَّلَ اللهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ. وَقَالَ فِي فَضِيلَةِ الْعَالِمِ : فَضْلُ الْعَالِمِ عَلَى الْعَابِدِ كَفَضْلِ الْقَمَرِ عَلَى سَائِرِ الْكَوَاكِبِ". وَقَالَ اللهُ تَعَالَى : "هَلْ يَسْتَوِي الَّذِينَ يَعْلَمُوْنَ وَالَّذِينَ لا يَعْلَمُوْنَ".
+                </div>
+
+                <div class="essay-para">
+                    <span class="essay-head">حُكْمُ طَلَبِ الْعِلْمِ :</span>
+                    طَلَبُ عِلْمٍ مَبَادِئِ الدِّيْنِ فَرْضٌ عَلَى كُلِّ مُসْلِمٍ قَالَ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ : " طَلَبُ الْعِلْمِ فَرِيضَةً عَلَى كُلِّ مُসْلِمٍ". وَطَلَبُ عِلْمِ الدُّنْيَا وَالتَّعَمُّقُ فِيْهِ مُبَاحٌ وَفَرْضٌ عَلَى الْكِفَايَةِ.
+                </div>
+
+                <div class="essay-para">
+                    <span class="essay-head">وَاجِبُنَا نَحْوَ الْعِلْمِ :</span>
+                    وَاجِبُنَا أَنْ نَتَعَلَّمَ وَنُعَلِّمَ قِسْمَى الْعِلْمِ رِضًا لِلَّهِ تَعَالَى وَنُحَصِّلَ بِهِ حَيَاتَنَا الرَّفِيعَةَ وَنَرْفَعَ بِلَادَنَا.
+                </div>
+
+                <div class="essay-para">
+                    <span class="essay-head">الْخَاتِمَةُ :</span>
+                    الْعِلْمُ النَّافِعُ سَبَبٌ لِلْقَوْزِ وَالْفَلَاحِ لِصَاحِبِهِ فِي الدُّنْيَا وَالْآخِرَةِ فَعَلَيْنَا أَنْ نَتَعَلَّمَ الْعُلُوْمَ الدِّينِيَّةَ وَالدُّنْيَوِيَّةَ كِلَيْهِمَا.
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">৪. চিঠি (الرسالة)</h2>
+        <div class="content-card">
+            <p>বাবার কাছে টাকা চেয়ে একটি পত্র লিখুন।</p>
+            <div class="arabic-text" style="font-size: 1.2rem; text-align: left; direction: ltr;">
+                (চিঠির ফরমেট এখানে যোগ করুন)
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 Madrasah Note | By Enayet Karim & Khubaib Ahmad
+    </footer>
+
+    <script>
+        function switchTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById("theme-icon");
+            if (html.getAttribute("data-theme") === "light") {
+                html.setAttribute("data-theme", "dark");
+                icon.innerHTML = "☀️";
+            } else {
+                html.setAttribute("data-theme", "light");
+                icon.innerHTML = "🌙";
+            }
+        }
+
+        function toggleProverb(id, arabic, bangla) {
+            const el = document.getElementById(id);
+            if (el.innerText === bangla) {
+                el.innerText = arabic;
+                el.style.fontFamily = "'Amiri', serif";
+                el.style.fontSize = "1.3rem";
+            } else {
+                el.innerText = bangla;
+                el.style.fontFamily = "'Hind Siliguri', sans-serif";
+                el.style.fontSize = "1rem";
+            }
+        }
+    </script>
+</body>
+  </html>
