@@ -15,11 +15,11 @@
             font-family: 'Hind Siliguri', sans-serif;
             display: flex;
             flex-direction: column;
-            height: 100vh; /* পুরো স্ক্রিন দখল করবে */
+            height: 100vh; /* পুরো স্ক্রিন উচ্চতা */
             overflow: hidden;
         }
 
-        /* হেডার: লোগো বামে এবং মেনু ডানে */
+        /* হেডার ডিজাইন */
         nav {
             display: flex;
             justify-content: space-between;
@@ -46,28 +46,24 @@
             color: #888;
             text-decoration: none;
             font-size: 0.8rem;
-            transition: 0.3s;
         }
 
-        .nav-links a.active {
-            color: #d4af37;
-        }
-
-        /* কন্টেন্ট একদম মাঝখানে আনার জন্য */
+        /* কন্টেন্ট নিচে নামানোর জন্য স্টাইল */
         main {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* লম্বালম্বিভাবে মাঝখানে */
-            align-items: center; /* আড়াআড়িভাবে মাঝখানে */
+            justify-content: center; /* মাঝখানে আনবে */
+            align-items: center;
             text-align: center;
-            padding-bottom: 5vh; /* সামান্য উপরে তোলার জন্য */
+            /* আপনার চাহিদা অনুযায়ী লিখাগুলো নিচে নামানোর জন্য padding-top বাড়ানো হয়েছে */
+            padding-top: 15vh; 
         }
 
         .sub-title {
             font-size: 0.9rem;
             letter-spacing: 4px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: #d4af37;
             opacity: 0.8;
         }
@@ -91,6 +87,35 @@
             letter-spacing: 1px;
         }
 
+        /* এখানে CONTRIBUTED BY এর কোনো কোড রাখা হয়নি, তাই এটি আর আসবে না */
+
         @media (max-width: 600px) {
             .main-title { font-size: 2.2rem; }
-            .nav-links { gap: 10px
+            .nav-links { gap: 10px; }
+            .nav-links a { font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">MADRASAH NOTE</a>
+        <div class="nav-links">
+            <a href="#" class="active">Home</a>
+            <a href="#">তরজমা</a>
+            <a href="#">আরবি</a>
+            <a href="#">বাংলা</a>
+            <a href="#">ইংরেজি</a>
+        </div>
+    </nav>
+
+    <main>
+        <p class="sub-title">মাদ্রাসা নোট সংকলন</p>
+        <h1 class="main-title">
+            <span class="title-white">Madrasah</span><span class="title-gold">Note</span>
+        </h1>
+        <p class="author">By Enayet Karim & Khubaib Ahmad</p>
+    </main>
+
+</body>
+</html>
