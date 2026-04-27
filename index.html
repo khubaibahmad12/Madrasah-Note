@@ -19,7 +19,7 @@
             width: 100%;
         }
 
-        /* হেডার */
+        /* উপরের হেডার - লোগো এক লাইনে এবং ছোট */
         nav {
             display: flex;
             justify-content: space-between;
@@ -30,12 +30,16 @@
 
         .logo {
             font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
+            font-size: 1rem; /* ছোট করা হয়েছে */
             font-weight: 700;
             letter-spacing: 1px;
-            color: #d4af37;
             text-decoration: none;
+            white-space: nowrap; /* এক লাইনে নিশ্চিত করবে */
         }
+
+        /* লোগোর কালার কম্বিনেশন */
+        .logo-white { color: #ffffff; }
+        .logo-gold { color: #d4af37; }
 
         .nav-links {
             display: flex;
@@ -48,7 +52,7 @@
             font-size: 0.8rem;
         }
 
-        /* মেইন কন্টেন্ট এলাকা */
+        /* মাঝখানের কন্টেন্ট এলাকা */
         main {
             flex-grow: 1;
             display: flex;
@@ -67,18 +71,16 @@
             opacity: 0.8;
         }
 
-        /* টাইটেল স্টাইল - এক লাইনে এবং ছোট করা হয়েছে */
+        /* মাঝখানের টাইটেল আগের মতো বড় */
         .main-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.4rem; /* আকার কিছুটা ছোট করা হয়েছে */
+            font-size: 2.8rem; 
             font-weight: 800;
             margin: 0;
-            display: flex;
-            gap: 8px; /* দুই শব্দের মাঝে গ্যাপ */
         }
 
-        .title-white { color: #ffffff; } /* Madrasah সাদা */
-        .title-gold { color: #d4af37; }  /* Note সোনালী */
+        .title-white { color: #ffffff; }
+        .title-gold { color: #d4af37; }
 
         .author {
             margin-top: 15px;
@@ -105,18 +107,21 @@
         }
 
         @media (max-width: 600px) {
-            .main-title { font-size: 2rem; }
+            .main-title { font-size: 2.2rem; }
             .nav-links { gap: 10px; }
+            .logo { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">MADRASAH NOTE</a>
+        <a href="#" class="logo">
+            <span class="logo-white">MADRASAH</span> <span class="logo-gold">NOTE</span>
+        </a>
         <div class="nav-links">
             <a href="#" class="active">Home</a>
-            <a href="#">তরজমা</a>
+            <a href="torjoma.html">তরজমা</a>
             <a href="#">আরবি</a>
             <a href="#">বাংলা</a>
             <a href="#">ইংরেজি</a>
@@ -126,8 +131,7 @@
     <main>
         <p class="sub-title">মাদ্রাসা নোট সংকলন</p>
         <h1 class="main-title">
-            <span class="title-white">Madrasah</span>
-            <span class="title-gold">Note</span>
+            <span class="title-white">Madrasah</span> <span class="title-gold">Note</span>
         </h1>
         <p class="author">By Enayet Karim & Khubaib Ahmad</p>
     </main>
