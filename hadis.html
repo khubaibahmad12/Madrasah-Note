@@ -31,6 +31,7 @@
             color: var(--text-color);
             font-family: 'Hind Siliguri', sans-serif;
             transition: 0.3s;
+            overflow-x: hidden;
         }
 
         a { text-decoration: none; }
@@ -45,6 +46,8 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            /* নেভবার এনিমেশন */
+            animation: fadeInDown 0.8s ease-out;
         }
 
         .logo {
@@ -58,7 +61,6 @@
 
         .nav-right { display: flex; align-items: center; gap: 15px; }
 
-        /* থিম সুইচ বাটন স্টাইল */
         .theme-switch {
             cursor: pointer;
             font-size: 1.2rem;
@@ -73,6 +75,12 @@
             border: 1px solid var(--gold);
             padding: 6px 15px;
             border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--gold);
+            color: #000;
         }
 
         .extra-menu { position: relative; cursor: pointer; }
@@ -107,6 +115,18 @@
 
         .container { max-width: 850px; margin: 30px auto; padding: 0 20px; }
         
+        /* এনিমেশন ক্লাস */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .hadis-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -114,13 +134,19 @@
             border-radius: 12px;
             margin-bottom: 35px;
             scroll-margin-top: 100px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .hadis-card:hover {
+            transform: scale(1.01);
+            border-color: var(--gold);
         }
 
         h2 { color: var(--gold); font-size: 1.4rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-top: 0; }
 
         .arabic {
             font-family: 'Amiri', serif;
-            font-size: 1.4rem; /* আপনার চাহিদা মতো ছোট করা হয়েছে */
+            font-size: 1.4rem;
             line-height: 2.1;
             text-align: right;
             direction: rtl;
@@ -144,6 +170,12 @@
             font-style: italic;
             color: #888;
             font-size: 0.85rem;
+        }
+
+        /* Keyframes */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         footer { text-align: center; padding: 40px; color: #555; }
@@ -176,10 +208,10 @@
 
     <div class="container">
         
-        <div class="hadis-card" id="h1">
+        <div class="hadis-card reveal" id="h1">
             <h2>১নং হাদীছ শরীফ</h2>
             <span class="arabic">
-             عن حضرت أبي هريرة رضي الله تعالي عنه قال قال رسول الله صلى الله عليه وسلم خلق الله حضرت آدم عليه السلام على صورته طوله ستون ذراعا فلما خلقه قال اذهب فسلم على أولئك النفر وهم نفر من الملائكة جلوس فاستمع ما يحيونك فإنه تحيتك وتحية ذريتك فذهب فقال السلام عليكم فقالوا السلام عليك ورحمة الله قال فزادوه ورحمة الله قال فكل من يدخل الجنة على صورة حضرت ادم عليه السلام وطوله ستون ذراعا فلم يزل الخلق ينقص بعده حتى الآن (متفق عليه)
+             عن حضرت أبي هريرة رضي الله تعالي عنه قال قال رسول الله صلى الله عليه وسلم خلق الله حضرت آدم عليه السلام على صورته طوله ستون ذরাعا فلما خلقه قال اذهب فسلم على أولئك النفر وهم نفر من الملائكة جلوس فاستمع ما يحيونك فإنه تحিতক وتحية ذريتك فذهب فقال السلام عليكم فقالوا السلام عليك ورحمة الله قال فزادوه ورحمة الله قال فكل من يدخل الجنة على صورة حضرت ادم عليه السلام وطوله ستون ذراعا فلم يزل الخلق ينقص بعده حتى الآن (متفق عليه)
             </span>
             <div class="bangla-translation">
                 <strong>অর্থঃ</strong> হযরত আবূ হুরাইরা রদ্বিয়াল্লাহু তায়ালা আনহু উনার থেকে বর্ণিত। তিনি বলেন, নূরে মুজাসসাম হাবীবুল্লাহ হুযূর পাক ছল্লাল্লাহু আলাইহি ওয় সাল্লাম তিনি বলেছেন, মহান আল্লাহ পাক তিনি হযরত আদম আলাইহিস সালাম উনাকে উনার মৌলিক আকৃতিতে সৃষ্টি করেছেন। উনার উচ্চতা ছিল ষাট হাত...
@@ -187,7 +219,7 @@
             <span class="source">সূত্র: ইমাম বুখারী ও মুসলিম রহমতুল্লাহি আলাইহি উনাদের সম্মিলিত বর্ণনা।</span>
         </div>
 
-        <div class="hadis-card" id="h2">
+        <div class="hadis-card reveal" id="h2">
             <h2>২নং হাদীছ শরীফ</h2>
             <span class="arabic">
                 عن حضرت أبي سعيد الخدري رضي الله تعالي عنه عن النبي صلى الله عليه وسلم قال إياكم والجلوس بالطرقات فقالوا يا رسول الله صلي الله عليه وسلم ما لنا من مجالسنا بد نتحدث فيها قال فإذا أبيتم إلا المجلس فأعطوا الطريق حقه - قالوا وما حق الطريق يا رسول الله صلي الله عليه وسلم ؟ قال غض البصر وكف الأذى ورد السلام والأمر المعروف والنهي عن المنكر - متفق عليه
@@ -198,7 +230,7 @@
             <span class="source">সূত্র: ইমাম বুখারী ও মুসলিম রহমতুল্লাহি আলাইহি উনাদের সম্মিলিত বর্ণনা।</span>
         </div>
 
-        <div class="hadis-card" id="h3">
+        <div class="hadis-card reveal" id="h3">
             <h2>৩নং হাদীছ শরীফ</h2>
             <span class="arabic">
                عن حضرت عمرو بن شعيب رضي الله تعالي عنه عن أبيه عن جده أن رسول الله صلى الله عليه وسلم قا ل ليس منا من تشبه بغيرنا - لا تشبهوا اليهود ولا النصارى فإن تسليم اليهود الإشارة بالأصابع وتسليم النصارى لإشارة بالأكف - رواه الترمذي
@@ -234,6 +266,7 @@
             const savedTheme = localStorage.getItem("theme") || "dark";
             document.documentElement.setAttribute("data-theme", savedTheme);
             document.getElementById("theme-icon").innerHTML = (savedTheme === "light") ? "🌙" : "☀️";
+            reveal(); // শুরুতে একবার চেক করা
         }
 
         function toggleDropdown() {
@@ -246,6 +279,22 @@
                 document.getElementById("myDropdown").style.display = "none";
             }
         }
+
+        // স্ক্রল রিভীল এনিমেশন ফাংশন
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // এলিমেন্ট ১০০ পিক্সেল উপরে আসলেই দেখা যাবে
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
     </script>
 </body>
-</html>
+                                                                                             </html>
