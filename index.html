@@ -3,253 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MADRASAH NOTE</title>
+    <title>MADRASAH NOTE - LOGIN</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Cinzel:wght@700&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* কালার ভেরিয়েবল (ডিফল্ট ডার্ক মোড) */
+        /* কালার ভেরিয়েবল */
         :root {
             --bg-color: #0a0a0a; 
             --gold-color: #d4af37;
             --white-text: #ffffff;
             --author-text: #555;
             --menu-bg: rgba(15, 15, 15, 0.95);
+            --input-bg: #1a1a1a;
         }
 
-        /* লাইট মোড ভেরিয়েবল */
         [data-theme="light"] {
             --bg-color: #ffffff;
-            --gold-color: #a68926; /* লাইট মোডে একটু ডার্ক গোল্ড */
+            --gold-color: #a68926;
             --white-text: #1a1a1a;
             --author-text: #777;
             --menu-bg: rgba(245, 245, 245, 0.98);
+            --input-bg: #f0f0f0;
         }
 
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: var(--bg-color);
             color: var(--gold-color);
             font-family: 'Hind Siliguri', sans-serif;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            width: 100%;
+            transition: 0.4s;
             overflow-x: hidden;
-            transition: background-color 0.4s, color 0.4s; /* স্মুথ ট্রানজিশন */
         }
 
+        /* Nav & Layout */
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; justify-content: space-between; align-items: center;
             padding: 20px 5%;
-            background-color: var(--bg-color);
-            position: relative;
         }
-
-        .logo {
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
+        .logo { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; text-decoration: none; }
         .logo-white { color: var(--white-text); }
-        .logo-gold { color: var(--gold-color); }
-
-        /* থিম বাটন স্টাইল */
-        .theme-toggle {
-            cursor: pointer;
-            font-size: 1.2rem;
-            margin-right: 15px;
-            margin-left: auto; /* বাটনটি ডানপাশে নেওয়ার জন্য */
-            user-select: none;
+        
+        /* Login Form Section */
+        #login-container {
+            display: flex; justify-content: center; align-items: center;
+            height: 80vh;
         }
 
-        .menu-icon {
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            z-index: 1001;
-        }
-
-        .menu-icon span {
-            display: block;
-            width: 25px;
-            height: 2px;
-            background-color: var(--gold-color);
-            transition: 0.3s;
-        }
-
-        .nav-links {
-            position: absolute;
-            top: 70px;
-            right: 5%;
-            background-color: var(--menu-bg);
+        .login-box {
+            background: var(--menu-bg);
+            padding: 40px;
+            border-radius: 15px;
             border: 1px solid var(--gold-color);
-            display: none;
-            flex-direction: column;
-            padding: 20px;
-            border-radius: 8px;
-            z-index: 1000;
-            min-width: 150px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+            width: 300px;
         }
 
-        .nav-links.active {
-            display: flex;
-            animation: fadeIn 0.3s ease-in-out;
-        }
+        .login-box h2 { font-family: 'Playfair Display', serif; color: var(--white-text); }
 
-        .nav-links a {
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: var(--input-bg);
+            border: 1px solid #333;
             color: var(--white-text);
-            text-decoration: none;
-            font-size: 1rem;
-            padding: 10px 0;
-            border-bottom: 1px solid #444;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            background: var(--gold-color);
+            border: none;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
             transition: 0.3s;
         }
 
-        .nav-links a:hover {
-            color: var(--gold-color);
-            padding-left: 5px;
-        }
+        .login-box button:hover { opacity: 0.8; }
 
-        main {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; 
-            align-items: center;
+        /* Dashboard Section (Hidden by default) */
+        #dashboard {
+            display: none;
+            padding: 40px 5%;
             text-align: center;
         }
 
-        .sub-title {
-            font-size: 0.9rem;
-            letter-spacing: 4px;
-            margin-bottom: 10px;
+        .welcome-msg { font-size: 2rem; color: var(--white-text); margin-bottom: 20px; }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--gold-color);
             color: var(--gold-color);
-            opacity: 0.8;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin-top: 20px;
         }
 
-        .main-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem; 
-            font-weight: 800;
-            margin: 0;
-        }
-
-        .title-white { color: var(--white-text); }
-        .title-gold { color: var(--gold-color); }
-
-        .author {
-            margin-top: 15px;
-            color: var(--author-text);
-            font-size: 0.9rem;
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 1px;
-        }
-
-        footer {
-            width: 100%;
-            padding-bottom: 30px;
-            text-align: center;
-        }
-
-        .madrasah-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            color: var(--gold-color);
-            text-transform: uppercase;
-            margin: 0;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 600px) {
-            .main-title { font-size: 2.5rem; }
-        }
+        /* Utility */
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html" class="logo">
-            <span class="logo-white">মূল</span> <span class="logo-gold">পৃষ্ঠা</span>
+        <a href="#" class="logo">
+            <span class="logo-white">MADRASAH</span> <span class="logo-gold">NOTE</span>
         </a>
-
-        <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀️</div>
-
-        <div class="menu-icon" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <div class="nav-links" id="navLinks">
-            <a href="index.html">মূল পৃষ্ঠা</a>
-            <a href="tarjoma.html">তরজমা</a>
-            <a href="hadis.html">হাদীছ শরীফ</a>
-            <a href="arbi2nd.html">আরবি ২য়</a>
-            <a href="#">বাংলা</a>
-            <a href="#">ইংরেজি</a>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()" style="cursor:pointer">☀️</div>
+            <button id="logoutBtn" class="logout-btn hidden" onclick="logout()">লগ-আউট</button>
         </div>
     </nav>
 
-    <main>
-        <p class="sub-title">মাদ্রাসা নোট সংকলন</p>
-        <h1 class="main-title">
-            <span class="title-white">Madrasah</span> <span class="title-gold">Note</span>
-        </h1>
-        <p class="author">By Enayet Karim & Khubaib Ahmad</p>
-    </main>
+    <div id="login-container">
+        <div class="login-box">
+            <h2>লগইন করুন</h2>
+            <input type="text" id="username" placeholder="ইউজারনেম (admin)">
+            <input type="password" id="password" placeholder="পাসওয়ার্ড (1234)">
+            <button onclick="login()">প্রবেশ করুন</button>
+            <p id="error-msg" style="color: red; font-size: 0.8rem; margin-top: 10px; display: none;">ভুল তথ্য দিয়েছেন!</p>
+        </div>
+    </div>
 
-    <footer>
-        <p class="madrasah-name">MUHAMMADIA JAMIA SHAREEF MADRASAH</p>
-    </footer>
-
-    <script>
-        // মেনু টগল ফাংশন
-        function toggleMenu() {
-            const navLinks = document.getElementById("navLinks");
-            navLinks.classList.toggle("active");
-        }
-
-        // ডার্ক/লাইট মোড সুইচ ফাংশন
-        function toggleTheme() {
-            const html = document.documentElement;
-            const themeToggle = document.getElementById("themeToggle");
-            
-            if (html.getAttribute("data-theme") === "light") {
-                html.removeAttribute("data-theme");
-                themeToggle.innerText = "☀️"; // ডার্ক মোডে সূর্য দেখাবে
-            } else {
-                html.setAttribute("data-theme", "light");
-                themeToggle.innerText = "🌙"; // লাইট মোডে চাঁদ দেখাবে
-            }
-        }
-
-        // মেনুর বাইরে ক্লিক করলে মেনু বন্ধ করা
-        window.onclick = function(event) {
-            if (!event.target.matches('.menu-icon') && !event.target.matches('.menu-icon span')) {
-                var dropdowns = document.getElementsByClassName("nav-links");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('active')) {
-                        openDropdown.classList.remove('active');
-                    }
-                }
-            }
-        }
-    </script>
-
-</body>
-    </html>
+    <main id="dashboard">
+        <p class="sub-title">মাদ্রাসা নোট ড্যাশবোর্ড</p>
