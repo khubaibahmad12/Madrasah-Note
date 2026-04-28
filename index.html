@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MADRASAH NOTE - LOGIN</title>
+    <title>MADRASAH NOTE - AUTH</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Cinzel:wght@700&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* কালার ভেরিয়েবল */
         :root {
             --bg-color: #0a0a0a; 
             --gold-color: #d4af37;
             --white-text: #ffffff;
-            --author-text: #555;
             --menu-bg: rgba(15, 15, 15, 0.95);
             --input-bg: #1a1a1a;
         }
@@ -21,7 +19,6 @@
             --bg-color: #ffffff;
             --gold-color: #a68926;
             --white-text: #1a1a1a;
-            --author-text: #777;
             --menu-bg: rgba(245, 245, 245, 0.98);
             --input-bg: #f0f0f0;
         }
@@ -32,104 +29,159 @@
             color: var(--gold-color);
             font-family: 'Hind Siliguri', sans-serif;
             transition: 0.4s;
-            overflow-x: hidden;
         }
 
-        /* Nav & Layout */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 5%;
-        }
-        .logo { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; text-decoration: none; }
-        .logo-white { color: var(--white-text); }
-        
-        /* Login Form Section */
-        #login-container {
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; }
+        .logo { font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; text-decoration: none; color: var(--white-text); }
+
+        /* Auth Container */
+        .auth-container {
             display: flex; justify-content: center; align-items: center;
-            height: 80vh;
+            min-height: 80vh;
         }
 
-        .login-box {
+        .auth-box {
             background: var(--menu-bg);
-            padding: 40px;
+            padding: 30px;
             border-radius: 15px;
             border: 1px solid var(--gold-color);
+            width: 320px;
+            text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            text-align: center;
-            width: 300px;
         }
 
-        .login-box h2 { font-family: 'Playfair Display', serif; color: var(--white-text); }
+        .auth-box h2 { font-family: 'Playfair Display', serif; color: var(--white-text); margin-bottom: 20px; }
 
-        .login-box input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            background: var(--input-bg);
-            border: 1px solid #333;
-            color: var(--white-text);
-            border-radius: 5px;
-            box-sizing: border-box;
+        .auth-box input {
+            width: 100%; padding: 12px; margin: 8px 0;
+            background: var(--input-bg); border: 1px solid #333;
+            color: var(--white-text); border-radius: 5px; box-sizing: border-box;
         }
 
-        .login-box button {
-            width: 100%;
-            padding: 12px;
-            background: var(--gold-color);
-            border: none;
-            color: #000;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 10px;
-            transition: 0.3s;
+        .auth-box button {
+            width: 100%; padding: 12px; background: var(--gold-color);
+            border: none; color: #000; font-weight: bold;
+            cursor: pointer; border-radius: 5px; margin-top: 10px;
         }
 
-        .login-box button:hover { opacity: 0.8; }
-
-        /* Dashboard Section (Hidden by default) */
-        #dashboard {
-            display: none;
-            padding: 40px 5%;
-            text-align: center;
+        .toggle-link {
+            margin-top: 15px; font-size: 0.9rem; color: var(--white-text); cursor: pointer;
         }
+        .toggle-link span { color: var(--gold-color); text-decoration: underline; }
 
-        .welcome-msg { font-size: 2rem; color: var(--white-text); margin-bottom: 20px; }
+        /* Dashboard */
+        #dashboard { display: none; padding: 40px 5%; text-align: center; }
+        .hidden { display: none !important; }
 
         .logout-btn {
-            background: transparent;
-            border: 1px solid var(--gold-color);
-            color: var(--gold-color);
-            padding: 8px 15px;
-            cursor: pointer;
-            margin-top: 20px;
+            background: transparent; border: 1px solid var(--gold-color);
+            color: var(--gold-color); padding: 5px 15px; cursor: pointer; border-radius: 5px;
         }
-
-        /* Utility */
-        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">
-            <span class="logo-white">MADRASAH</span> <span class="logo-gold">NOTE</span>
-        </a>
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()" style="cursor:pointer">☀️</div>
-            <button id="logoutBtn" class="logout-btn hidden" onclick="logout()">লগ-আউট</button>
-        </div>
+        <a href="#" class="logo">MADRASAH <span style="color:var(--gold-color)">NOTE</span></a>
+        <button id="logoutBtn" class="logout-btn hidden" onclick="logout()">লগ-আউট</button>
     </nav>
 
-    <div id="login-container">
-        <div class="login-box">
-            <h2>লগইন করুন</h2>
-            <input type="text" id="username" placeholder="ইউজারনেম (admin)">
-            <input type="password" id="password" placeholder="পাসওয়ার্ড (1234)">
+    <div id="login-section" class="auth-container">
+        <div class="auth-box">
+            <h2>লগইন</h2>
+            <input type="text" id="login-user" placeholder="ইউজারনেম">
+            <input type="password" id="login-pass" placeholder="পাসওয়ার্ড">
             <button onclick="login()">প্রবেশ করুন</button>
-            <p id="error-msg" style="color: red; font-size: 0.8rem; margin-top: 10px; display: none;">ভুল তথ্য দিয়েছেন!</p>
+            <p class="toggle-link" onclick="toggleAuth()">একাউন্ট নেই? <span>রেজিস্ট্রেশন করুন</span></p>
+        </div>
+    </div>
+
+    <div id="register-section" class="auth-container hidden">
+        <div class="auth-box">
+            <h2>রেজিস্ট্রেশন</h2>
+            <input type="text" id="reg-user" placeholder="নতুন ইউজারনেম">
+            <input type="password" id="reg-pass" placeholder="পাসওয়ার্ড তৈরি করুন">
+            <button onclick="register()">একাউন্ট খুলুন</button>
+            <p class="toggle-link" onclick="toggleAuth()">একাউন্ট আছে? <span>লগইন করুন</span></p>
         </div>
     </div>
 
     <main id="dashboard">
-        <p class="sub-title">মাদ্রাসা নোট ড্যাশবোর্ড</p>
+        <h1 style="color:var(--white-text)">স্বাগতম, <span id="display-name"></span>!</h1>
+        <p>আপনার মাদ্রাসা নোটবুক এখন প্রস্তুত।</p>
+        <div style="margin-top:30px; border-top:1px solid var(--gold-color); padding-top:20px;">
+            <h3>আপনার কন্টেন্ট এখানে যুক্ত করুন...</h3>
+        </div>
+    </main>
+
+    <script>
+        // ফর্ম পরিবর্তন (লগইন <-> রেজিস্ট্রেশন)
+        function toggleAuth() {
+            document.getElementById("login-section").classList.toggle("hidden");
+            document.getElementById("register-section").classList.toggle("hidden");
+        }
+
+        // রেজিস্ট্রেশন লজিক
+        function register() {
+            const user = document.getElementById("reg-user").value;
+            const pass = document.getElementById("reg-pass").value;
+
+            if (user === "" || pass === "") {
+                alert("সবগুলো ঘর পূরণ করুন!");
+                return;
+            }
+
+            // আগের ইউজারদের ডাটা চেক করা
+            let users = JSON.parse(localStorage.getItem("users")) || {};
+
+            if (users[user]) {
+                alert("এই নামে অলরেডি একাউন্ট আছে!");
+            } else {
+                users[user] = pass;
+                localStorage.setItem("users", JSON.stringify(users));
+                alert("রেজিস্ট্রেশন সফল! এখন লগইন করুন।");
+                toggleAuth();
+            }
+        }
+
+        // লগইন লজিক
+        function login() {
+            const user = document.getElementById("login-user").value;
+            const pass = document.getElementById("login-pass").value;
+            
+            let users = JSON.parse(localStorage.getItem("users")) || {};
+
+            if (users[user] && users[user] === pass) {
+                localStorage.setItem("currentUser", user);
+                showDashboard(user);
+            } else {
+                alert("ভুল ইউজারনেম বা পাসওয়ার্ড!");
+            }
+        }
+
+        // ড্যাশবোর্ড দেখানো
+        function showDashboard(user) {
+            document.getElementById("login-section").classList.add("hidden");
+            document.getElementById("register-section").classList.add("hidden");
+            document.getElementById("dashboard").style.display = "block";
+            document.getElementById("logoutBtn").classList.remove("hidden");
+            document.getElementById("display-name").innerText = user;
+        }
+
+        // লগ-আউট
+        function logout() {
+            localStorage.removeItem("currentUser");
+            location.reload();
+        }
+
+        // পেজ লোড হলে চেক করা
+        window.onload = function() {
+            const loggedInUser = localStorage.getItem("currentUser");
+            if (loggedInUser) {
+                showDashboard(loggedInUser);
+            }
+        }
+    </script>
+
+</body>
+</html>
