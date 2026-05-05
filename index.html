@@ -7,22 +7,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Cinzel:wght@700&family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* কালার ভেরিয়েবল (ডিফল্ট ডার্ক মোড) */
         :root {
             --bg-color: #0a0a0a; 
             --gold-color: #d4af37;
             --white-text: #ffffff;
             --author-text: #555;
             --menu-bg: rgba(15, 15, 15, 0.95);
+            --card-bg: #111;
         }
 
-        /* লাইট মোড ভেরিয়েবল */
         [data-theme="light"] {
             --bg-color: #ffffff;
-            --gold-color: #a68926; /* লাইট মোডে একটু ডার্ক গোল্ড */
+            --gold-color: #a68926;
             --white-text: #1a1a1a;
             --author-text: #777;
             --menu-bg: rgba(245, 245, 245, 0.98);
+            --card-bg: #f9f9f9;
         }
 
         body {
@@ -33,170 +33,96 @@
             font-family: 'Hind Siliguri', sans-serif;
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            min-height: 100vh;
             width: 100%;
             overflow-x: hidden;
-            transition: background-color 0.4s, color 0.4s; /* স্মুথ ট্রানজিশন */
+            transition: background-color 0.4s, color 0.4s;
         }
 
+        /* Navigation */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 5%;
             background-color: var(--bg-color);
-            position: relative;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
         }
 
         .logo {
             font-family: 'Cinzel', serif;
             font-size: 1.2rem;
             font-weight: 700;
-            letter-spacing: 1px;
             text-decoration: none;
-            white-space: nowrap;
+            cursor: pointer;
         }
-
         .logo-white { color: var(--white-text); }
-        .logo-gold { color: var(--gold-color); }
 
-        /* থিম বাটন স্টাইল */
-        .theme-toggle {
-            cursor: pointer;
-            font-size: 1.2rem;
-            margin-right: 15px;
-            margin-left: auto; /* বাটনটি ডানপাশে নেওয়ার জন্য */
-            user-select: none;
-        }
+        .theme-toggle { cursor: pointer; font-size: 1.2rem; margin-right: 15px; margin-left: auto; }
 
-        .menu-icon {
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            z-index: 1001;
-        }
-
-        .menu-icon span {
-            display: block;
-            width: 25px;
-            height: 2px;
-            background-color: var(--gold-color);
-            transition: 0.3s;
-        }
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 5px; }
+        .menu-icon span { display: block; width: 25px; height: 2px; background-color: var(--gold-color); transition: 0.3s; }
 
         .nav-links {
-            position: absolute;
-            top: 70px;
-            right: 5%;
-            background-color: var(--menu-bg);
-            border: 1px solid var(--gold-color);
-            display: none;
-            flex-direction: column;
-            padding: 20px;
-            border-radius: 8px;
-            z-index: 1000;
-            min-width: 150px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: absolute; top: 70px; right: 5%; background-color: var(--menu-bg);
+            border: 1px solid var(--gold-color); display: none; flex-direction: column;
+            padding: 20px; border-radius: 8px; min-width: 150px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
+        .nav-links.active { display: flex; animation: fadeIn 0.3s ease; }
+        .nav-links a { color: var(--white-text); text-decoration: none; padding: 10px 0; border-bottom: 1px solid #444; transition: 0.3s; cursor: pointer; }
+        .nav-links a:hover { color: var(--gold-color); padding-left: 5px; }
 
-        .nav-links.active {
-            display: flex;
-            animation: fadeIn 0.3s ease-in-out;
-        }
+        /* Sections */
+        .content-section { display: none; padding: 40px 5%; flex-grow: 1; animation: fadeIn 0.5s ease; }
+        .content-section.active { display: block; }
 
-        .nav-links a {
-            color: var(--white-text);
-            text-decoration: none;
-            font-size: 1rem;
-            padding: 10px 0;
-            border-bottom: 1px solid #444;
-            transition: 0.3s;
-        }
+        /* Home Page Content */
+        #home-section { text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 70vh; }
+        #home-section.active { display: flex; }
 
-        .nav-links a:hover {
-            color: var(--gold-color);
-            padding-left: 5px;
-        }
-
-        main {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; 
-            align-items: center;
-            text-align: center;
-        }
-
-        .sub-title {
-            font-size: 0.9rem;
-            letter-spacing: 4px;
-            margin-bottom: 10px;
-            color: var(--gold-color);
-            opacity: 0.8;
-        }
-
-        .main-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem; 
-            font-weight: 800;
-            margin: 0;
-        }
-
+        .main-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 800; margin: 0; }
         .title-white { color: var(--white-text); }
-        .title-gold { color: var(--gold-color); }
 
-        .author {
-            margin-top: 15px;
-            color: var(--author-text);
-            font-size: 0.9rem;
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 1px;
+        /* Tarjoma Cards Styling */
+        .tarjoma-grid { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 900px; margin: 0 auto; }
+        .note-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid var(--gold-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            line-height: 1.8;
+            color: var(--white-text);
         }
+        .note-card h3 { margin-top: 0; color: var(--gold-color); font-family: 'Playfair Display', serif; }
+        .arabic { font-size: 1.4rem; direction: rtl; display: block; margin: 10px 0; color: var(--gold-color); text-align: center; }
 
-        footer {
-            width: 100%;
-            padding-bottom: 30px;
-            text-align: center;
-        }
+        footer { padding: 30px 0; text-align: center; }
 
-        .madrasah-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            color: var(--gold-color);
-            text-transform: uppercase;
-            margin: 0;
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 600px) {
-            .main-title { font-size: 2.5rem; }
-        }
+        @media (max-width: 600px) { .main-title { font-size: 2.5rem; } }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html" class="logo">
+        <div class="logo" onclick="showSection('home-section')">
             <span class="logo-white">মূল</span> <span class="logo-gold">পৃষ্ঠা</span>
-        </a>
+        </div>
 
         <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀️</div>
 
         <div class="menu-icon" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
 
         <div class="nav-links" id="navLinks">
-            <a href="index.html">মূল পৃষ্ঠা</a>
-            <a href="#">তরজমা</a>
+            <a onclick="showSection('home-section')">মূল পৃষ্ঠা</a>
+            <a onclick="showSection('tarjoma-section')">তরজমা</a>
             <a href="#">হাদীছ শরীফ</a>
             <a href="#">আরবি ২য়</a>
             <a href="#">বাংলা</a>
@@ -204,40 +130,145 @@
         </div>
     </nav>
 
-    <main>
-        <p class="sub-title">মাদ্রাসা নোট সংকলন</p>
+    <main id="home-section" class="content-section active">
+        <p class="sub-title" style="letter-spacing: 4px; opacity: 0.8;">মাদ্রাসা নোট সংকলন</p>
         <h1 class="main-title">
             <span class="title-white">Madrasah</span> <span class="title-gold">Note</span>
         </h1>
-        <p class="author">By Enayet Karim & Khubaib Ahmad</p>
+        <p class="author" style="margin-top: 15px; color: var(--author-text); font-family: 'Playfair Display', serif;">By Enayet Karim & Khubaib Ahmad</p>
     </main>
 
+    <section id="tarjoma-section" class="content-section">
+        <h2 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 40px;">তরজমা নোট</h2>
+        <div class="tarjoma-grid">
+            
+            <div class="note-card">
+                <h3>১. মক্কী ও মাদানী সূরা</h3>
+                <p>হিজরতের পূর্বে নাযিল হওয়া সূরাগুলো মক্কী (৮৬টি) এবং হিজরতের পরে নাযিল হওয়া সূরাগুলো মাদানী (২৮টি)।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>২. তাফসীর ও তা'উয়ীল</h3>
+                <p>তাফসীর হলো আম ব্যাখ্যা। তা'উয়ীল হলো খাছ সারমর্ম যা আল্লাহ ও রসূল ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম এবং উনারা যাদের জানান উনারাই জানেন।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>৩. গাজওয়া</h3>
+                <p>যে জিহাদে হুযূর পাক ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম নিজে উপস্থিত ছিলেন। মশহুর গাজওয়া ৯টি। যথা: বদর, ওহুদ, বনু মুছতালিক, খন্দক, হুদায়বিয়া, খায়বার, মক্কা বিজয়, হুনাইন ও তাবুক।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>৪. কাফিরদের সাথে সম্পর্ক</h3>
+                <span class="arabic">اَلْمَرْأُ مَعَ مَنْ اَحَبَّ</span>
+                <p>অর্থাৎ যে যাকে মুহব্বত করবে সে তার অন্তর্ভুক্ত হবে। বিধর্মীদের ঘনিষ্ঠ বন্ধু হিসেবে গ্রহণ করা শরীয়ত মতে জায়েয নেই।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>৫. বাইতুল্লাহ শরীফ নির্মাণ</h3>
+                <p>তারতীব অনুসারে ১০ জন: ১. ফেরেশতা ২. আদম ৩. শীষ ৪. ইব্রাহীম আলাইহিমুস সালাম ৫. আমালিকা ৬. জুরহাম ৭. কুসাই বিন কিলাব ৮. কুরাইশ ৯. আব্দুল্লাহ ইবনে যুবায়ের রদ্বিয়াল্লাহু আনহু ১০. হাজ্জাজ বিন ইউসুফ।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>৬. পবিত্র কুরআন নাযিল</h3>
+                <p>শবে বরাতে সিদ্ধান্ত, শবে কদরে ১ম আসমানে নাযিল এবং দীর্ঘ ২৩ বছরে পর্যায়ক্রমে হুযূর পাক ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম উনার কাছে নাযিল সম্পন্ন হয়।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>৭. কুরআনের পরিসংখ্যান</h3>
+                <p>সূরা ১১৪টি, আয়াত ৬৬৬৬টি, রুকু ৫৪০টি, মঞ্জিল ৭টি, পারা ৩০টি, সিজদাহ আয়াত ১৪টি।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>৮. সূরা ফাতিহা শরীফের নাম</h3>
+                <p>১. আল-ফাতিহা ২. উম্মুল কিতাব ৩. উম্মুল কুরআন ৪. আস-সাবউল মাছানি ৫. সূরাতুল হামদ ৬. সূরাতুছ ছলাত ৭. সূরাতুশ শিফা ৮. সূরাতুর রুকইয়াহ ৯. সূরাতুল আসাস ১০. আল-ওয়াফিয়াহ।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>৯. মুত্তাকীদের গুণাবলী</h3>
+                <p>১. অদৃশ্যে বিশ্বাস ২. নামায কায়েম ৩. দান ৪. আসমানী কিতাবে ঈমান ৫. পরকালে দৃঢ় বিশ্বাস।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>১০. বাকারাহ বা গাভীর ঘটনা</h3>
+                <p>বনী ইসরাঈলে এক খুনের রহস্য উদঘাটনে আল্লাহ পাক বিশেষ রঙের গাভী যবেহ করার নির্দেশ দেন, যার স্পর্শে মৃত ব্যক্তি জীবিত হয়ে খুনির নাম প্রকাশ করে।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>১১. খলীফা</h3>
+                <p>খলীফা দ্বারা আমভাবে মানুষ, খাছভাবে হযরত আদম আলাইহিস সালাম এবং আখাচ্ছুল খাছভাবে হুযূর পাক ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম উনাকে বুঝানো হয়েছে।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>১২. সূরা আল ইমরান</h3>
+                <p>এটি মাদানী সূরা। এর আয়াত সংখ্যা ২০০ এবং রুকু ২০টি।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>১৩. সুদ ও বাইতুন নুক্বূদ</h3>
+                <p>সুদ হারাম, যাকাত হালাল। সুদের বিকল্প হিসেবে 'করযে হাসানা' ভিত্তিক আমানত ব্যবস্থা হলো "বাইতুন নুক্বূদ"।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>১৪. শ্রেষ্ঠ সম্প্রদায় ও আমল</h3>
+                <p>সৎ কাজের আদেশ ও অসৎ কাজের নিষেধ করা মুসলমানদের জন্য ফরয ও ওয়াজিব। এটিই শ্রেষ্ঠ উম্মত হওয়ার কারণ।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>১৫. বদর জিহাদ</h3>
+                <p>২য় হিজরীর ১৭ই রমাদ্বান। মুসলমান ৩১৩ জন, কাফির ১০০০ জন। এতে মুসলমানরা বিজয় লাভ করেন।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>১৬. উহুদ জিহাদ</h3>
+                <p>উহুদ জিহাদেও মুসলমানরা বিজয়ী হয়েছেন। কাফিররা পালিয়ে গেছে। ঐতিহাসিকদের পরাজয়ের তথ্যটি ভুল।</p>
+            </div>
+
+            <div class="note-card">
+                <h3>১৭. রিবো বা সুদ</h3>
+                <p>ক্রয়-বিক্রয় চুক্তির বাইরে অতিরিক্ত মাল গ্রহণই সুদ। এটি কাট্টা কবীরা গুনাহ।</p>
+            </div>
+
+        </div>
+    </section>
+
     <footer>
-        <p class="madrasah-name">MUHAMMADIA JAMIA SHAREEF MADRASAH</p>
+        <p class="madrasah-name" style="font-family: 'Playfair Display', serif; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;">MUHAMMADIA JAMIA SHAREEF MADRASAH</p>
     </footer>
 
     <script>
-        // মেনু টগল ফাংশন
         function toggleMenu() {
             const navLinks = document.getElementById("navLinks");
             navLinks.classList.toggle("active");
         }
 
-        // ডার্ক/লাইট মোড সুইচ ফাংশন
+        // সেকশন পরিবর্তন করার ফাংশন
+        function showSection(sectionId) {
+            // সব সেকশন লুকান
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // কাঙ্ক্ষিত সেকশন দেখান
+            document.getElementById(sectionId).classList.add('active');
+
+            // মেনু বন্ধ করুন
+            document.getElementById("navLinks").classList.remove("active");
+
+            // পেজের একদম উপরে নিয়ে যান
+            window.scrollTo(0, 0);
+        }
+
         function toggleTheme() {
             const html = document.documentElement;
             const themeToggle = document.getElementById("themeToggle");
-            
             if (html.getAttribute("data-theme") === "light") {
                 html.removeAttribute("data-theme");
-                themeToggle.innerText = "☀️"; // ডার্ক মোডে সূর্য দেখাবে
+                themeToggle.innerText = "☀️";
             } else {
                 html.setAttribute("data-theme", "light");
-                themeToggle.innerText = "🌙"; // লাইট মোডে চাঁদ দেখাবে
+                themeToggle.innerText = "🌙";
             }
         }
 
-        // মেনুর বাইরে ক্লিক করলে মেনু বন্ধ করা
         window.onclick = function(event) {
             if (!event.target.matches('.menu-icon') && !event.target.matches('.menu-icon span')) {
                 var dropdowns = document.getElementsByClassName("nav-links");
@@ -250,6 +281,5 @@
             }
         }
     </script>
-
 </body>
     </html>
