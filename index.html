@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MADRASAH NOTE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Cinzel:wght@700&family=Hind+Siliguri:wght@400;600&family=Noto+Serif+Bengali:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;700&family=Playfair+Display:wght@700;800&family=Cinzel:wght@700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -12,28 +12,27 @@
             --gold-color: #d4af37;
             --white-text: #ffffff;
             --author-text: #666;
-            --menu-bg: rgba(10, 10, 10, 0.98);
+            --menu-bg: #111;
             --card-bg: #151515;
-            --card-text: #e0e0e0;
         }
 
         [data-theme="light"] {
-            --bg-color: #fdfdfd;
+            --bg-color: #ffffff;
             --gold-color: #a68926;
             --white-text: #1a1a1a;
             --author-text: #888;
-            --menu-bg: rgba(255, 255, 255, 0.98);
-            --card-bg: #ffffff;
-            --card-text: #333;
+            --menu-bg: #f9f9f9;
+            --card-bg: #f5f5f5;
         }
 
         body {
             margin: 0;
             padding: 0;
             background-color: var(--bg-color);
-            color: var(--gold-color);
+            color: var(--white-text);
+            /* পুরো পেজে শুধু একটি বাংলা ফন্ট */
             font-family: 'Noto Serif Bengali', serif;
-            transition: 0.4s;
+            transition: background-color 0.4s;
             overflow-x: hidden;
         }
 
@@ -55,62 +54,38 @@
             font-size: 1.1rem;
             text-decoration: none;
             cursor: pointer;
+            color: var(--gold-color);
         }
-        .logo-white { color: var(--white-text); }
 
         .theme-toggle { cursor: pointer; font-size: 1.2rem; margin-left: auto; margin-right: 20px; }
 
-        .menu-icon {
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .menu-icon span {
-            display: block;
-            width: 28px;
-            height: 2px;
-            background-color: var(--gold-color);
-            transition: 0.3s;
-        }
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 6px; }
+        .menu-icon span { display: block; width: 28px; height: 2px; background-color: var(--gold-color); }
 
         /* Full Screen Overlay Menu */
         .nav-links {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            height: 100vh;
-            width: 100%;
-            max-width: 300px;
-            background-color: var(--menu-bg);
-            display: flex;
-            flex-direction: column;
-            padding: 80px 40px;
-            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            position: fixed; top: 0; right: -100%; height: 100vh; width: 260px;
+            background-color: var(--menu-bg); display: flex; flex-direction: column;
+            padding: 80px 30px; transition: 0.4s; z-index: 1000; box-shadow: -5px 0 20px rgba(0,0,0,0.5);
         }
         .nav-links.active { right: 0; }
         .nav-links a {
-            color: var(--white-text);
-            text-decoration: none;
-            font-size: 1.2rem;
-            padding: 18px 0;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            cursor: pointer;
-            font-family: 'Hind Siliguri', sans-serif;
+            color: var(--white-text); text-decoration: none; font-size: 1.2rem;
+            padding: 15px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.1); cursor: pointer;
         }
 
-        /* Sections */
+        /* Sections: এটাই আসল কাজ করবে */
         .content-section {
-            display: none;
+            display: none; /* সব সেকশন আগে লুকানো থাকবে */
             padding: 20px 5%;
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.4s ease-in-out;
         }
-        .content-section.active { display: block; }
+        .content-section.active {
+            display: block; /* শুধুমাত্র একটি সেকশন দেখাবে */
+        }
 
-        /* Home Page */
-        #home-section {
+        /* Home Section specific layout */
+        #home-section.active {
             height: 80vh;
             display: flex;
             flex-direction: column;
@@ -118,48 +93,29 @@
             align-items: center;
             text-align: center;
         }
-        .main-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0; }
 
-        /* Tarjoma - Question Cards */
-        .note-container { max-width: 850px; margin: 0 auto; }
+        .main-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0; }
+        .sub-title { letter-spacing: 4px; opacity: 0.8; font-size: 0.8rem; margin-bottom: 10px; color: var(--gold-color); }
+
+        /* Tarjoma Cards */
+        .note-container { max-width: 800px; margin: 0 auto; }
         .q-card {
             background: var(--card-bg);
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            padding: 25px; border-radius: 12px; margin-bottom: 25px;
             border-left: 4px solid var(--gold-color);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         .q-card h3 {
-            margin-top: 0;
-            font-size: 1.25rem;
-            color: var(--gold-color);
-            font-family: 'Hind Siliguri', sans-serif;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            padding-bottom: 10px;
-            line-height: 1.5;
+            margin-top: 0; color: var(--gold-color); font-size: 1.3rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 10px;
         }
-        .q-card p {
-            color: var(--card-text);
-            line-height: 1.8;
-            margin-bottom: 0;
-            font-size: 1.05rem;
-        }
-        .arabic {
-            font-family: 'Times New Roman', serif;
-            display: block;
-            text-align: center;
-            font-size: 1.6rem;
-            margin: 15px 0;
-            color: var(--gold-color);
-            direction: rtl;
-        }
+        .q-card p { line-height: 1.8; font-size: 1.1rem; margin-top: 15px; }
+        .arabic { font-size: 1.6rem; display: block; text-align: center; color: var(--gold-color); margin: 15px 0; direction: rtl; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         @media (max-width: 600px) {
-            .main-title { font-size: 2.5rem; }
-            .nav-links { width: 80%; }
+            .main-title { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -167,18 +123,15 @@
 
     <nav>
         <div class="logo" onclick="showSection('home-section')">
-            <span class="logo-white">মূল</span> <span class="logo-gold">পৃষ্ঠা</span>
+            <span style="color: var(--white-text);">মূল</span> <span>পৃষ্ঠা</span>
         </div>
-
         <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀️</div>
-
         <div class="menu-icon" onclick="toggleMenu()">
             <span></span><span></span><span></span>
         </div>
-
         <div class="nav-links" id="navLinks">
-            <a onclick="showSection('home-section')">মূল পাতা</a>
-            <a onclick="showSection('tarjoma-section')">তরজমা (নোট)</a>
+            <a onclick="showSection('home-section')">মূল পৃষ্ঠা</a>
+            <a onclick="showSection('tarjoma-section')">তরজমা</a>
             <a href="#">হাদীছ শরীফ</a>
             <a href="#">আরবি ২য়</a>
             <a href="#">বাংলা</a>
@@ -187,11 +140,11 @@
     </nav>
 
     <main id="home-section" class="content-section active">
-        <p style="letter-spacing: 4px; opacity: 0.7; font-size: 0.9rem;">মাদ্রাসা নোট সংকলন</p>
+        <p class="sub-title">মাদ্রাসা নোট সংকলন</p>
         <h1 class="main-title">
-            <span class="logo-white">Madrasah</span> <span class="logo-gold">Note</span>
+            <span style="color: var(--white-text);">Madrasah</span> <span style="color: var(--gold-color);">Note</span>
         </h1>
-        <p style="color: var(--author-text); font-family: 'Playfair Display', serif; margin-top: 10px;">By Enayet Karim & Khubaib Ahmad</p>
+        <p style="color: var(--author-text); margin-top: 15px;">By Enayet Karim & Khubaib Ahmad</p>
     </main>
 
     <section id="tarjoma-section" class="content-section">
@@ -203,25 +156,10 @@
             </div>
 
             <div class="q-card">
-                <h3>২. তাফসীর ও তা'উয়ীল উনাদের মধ্যে পার্থক্য কী?</h3>
-                <p>তাফসীর হলো আমভাবে যেকোনো ব্যাখ্যা। আর তা'উয়ীল হলো খাছভাবে পবিত্র কুরআন শরীফের অন্তর্নিহিত গূঢ় ব্যাখ্যা যা মহান আল্লাহ পাক ও উনার হাবীব ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম উনারাই ভালো জানেন।</p>
-            </div>
-
-            <div class="q-card">
-                <h3>৩. গাজওয়া কাকে বলা হয়?</h3>
-                <p>যে সমস্ত জিহাদে স্বয়ং নূরে মুজাসসাম হাবীবুল্লাহ হুযূর পাক ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম নিজে উপস্থিত ছিলেন, সেগুলোকে গাজওয়া বলা হয়। এটি মোট ৯টি।</p>
-            </div>
-
-            <div class="q-card">
                 <h3>৪. কাফিরদের বন্ধু হিসেবে গ্রহণের হুকুম কী?</h3>
-                <p>কোনো মুসলমানের জন্য কাফিরদের বন্ধু হিসেবে গ্রহণ করা জায়েয নেই। হাদীছ শরীফে আছে:</p>
-                <span class="arabic">اَلْمَرْأُ مَعَ مَنْ اَحَبَّ</span>
-                <p>অর্থাৎ যে যাকে মুহব্বত করবে সে তার অন্তর্ভুক্ত হবে।</p>
-            </div>
-
-            <div class="q-card">
-                <h3>৭. পবিত্র কুরআন শরীফের পরিসংখ্যান</h3>
-                <p>সূরা ১১৪টি, আয়াত ৬৬৬৬টি, রুকু ৫৪০টি, মঞ্জিল ৭টি, পারা ৩০টি এবং সিজদাহ আয়াত ১৪টি।</p>
+                <p>কোনো মুসলমানের জন্য কাফিরদের বন্ধু হিসেবে গ্রহণ করা জায়েয নেই। হাদীছ শরীফে ইরশাদ হয়েছে:</p>
+                <span class="arabic">اَلْمَرْأُ মَعَ مَنْ اَحَبَّ</span>
+                <p>অর্থাৎ যে যাকে মুহব্বত করবে সে তার অন্তর্ভুক্ত হবে। (সূরা আল ইমরান শরীফ : পবিত্র আয়াত শরীফ ১১৮)</p>
             </div>
 
             <div class="q-card">
@@ -230,35 +168,33 @@
             </div>
 
             <div class="q-card">
-                <h3>১৫. বদর জিহাদের সংক্ষিপ্ত তথ্য</h3>
-                <p>২য় হিজরীর ১৭ই রমাদ্বান শরীফে সংঘটিত হয়। মুসলমান ৩১৩ জন এবং কাফির ছিল ১০০০ জন। এতে মুসলমানরা বিজয় লাভ করেন।</p>
+                <h3>১৫. বদর জিহাদের সংক্ষিপ্ত বর্ণনা</h3>
+                <p>২য় হিজরীর ১৭ই রমাদ্বান শরীফে বদর জিহাদ সংঘটিত হয়। মুসলমান সংখ্যা ছিল ৩১৩ জন এবং কাফির ছিল ১০০০ জন। এতে মুসলমানরা মহান বিজয় লাভ করেন।</p>
             </div>
 
-            <div class="q-card">
-                <h3>১৭. রিবো (সুদ) এর হুকুম কী?</h3>
-                <p>আল্লাহ পাক ইরশাদ করেন: "আমি ব্যবসাকে হালাল করেছি এবং সুদকে হারাম করেছি।" সুদ খাওয়া কাট্টা কবীরা গুনাহ।</p>
-            </div>
-            
             </div>
     </section>
 
     <script>
+        // মেনু ওপেন/ক্লোজ
         function toggleMenu() {
             document.getElementById("navLinks").classList.toggle("active");
         }
 
+        // সেকশন দেখানোর আসল লজিক
         function showSection(sectionId) {
-            // সব সেকশন থেকে active ক্লাস সরিয়ে ফেলা
+            // সব সেকশন লুকান
             const sections = document.querySelectorAll('.content-section');
             sections.forEach(s => s.classList.remove('active'));
 
-            // নির্দিষ্ট সেকশন দেখানো
-            document.getElementById(sectionId).classList.add('active');
+            // যেটা দেখা দরকার সেটা দেখান
+            const activeSection = document.getElementById(sectionId);
+            activeSection.classList.add('active');
 
-            // মেনু বন্ধ করা
+            // মেনু বন্ধ করুন
             document.getElementById("navLinks").classList.remove("active");
 
-            // একদম উপরে স্ক্রল করা
+            // একদম উপরে চলে যান
             window.scrollTo(0, 0);
         }
 
@@ -274,7 +210,7 @@
             }
         }
 
-        // মেনুর বাইরে ক্লিক করলে মেনু বন্ধ হওয়া
+        // স্ক্রিনের কোথাও ক্লিক করলে মেনু বন্ধ করা
         document.addEventListener('click', function(event) {
             const navLinks = document.getElementById("navLinks");
             const menuIcon = document.querySelector(".menu-icon");
