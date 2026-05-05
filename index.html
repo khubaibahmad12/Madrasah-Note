@@ -32,7 +32,6 @@
         }
 
         * { box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
 
         body {
@@ -62,14 +61,10 @@
         }
 
         .logo { font-size: 1.4rem; cursor: pointer; color: var(--gold-color); font-weight: bold; animation: float 3s ease-in-out infinite; }
-        
         .nav-right { display: flex; align-items: center; gap: 20px; }
 
         /* থিম বাটন */
-        .theme-toggle {
-            cursor: pointer; font-size: 1.5rem; background: none; border: none;
-            color: var(--gold-color); transition: transform 0.3s; outline: none;
-        }
+        .theme-toggle { cursor: pointer; font-size: 1.5rem; background: none; border: none; color: var(--gold-color); transition: transform 0.3s; outline: none; }
         .theme-toggle:hover { transform: scale(1.2) rotate(20deg); }
 
         .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 6px; }
@@ -92,16 +87,21 @@
 
         /* মেইন কন্টেন্ট */
         main { flex: 1; }
-        .content-section { display: none; padding: 40px 5%; max-width: 900px; margin: auto; animation: fadeInUp 0.6s ease forwards; opacity: 0; transform: translateY(20px); }
+        .content-section { display: none; padding: 40px 5%; max-width: 900px; margin: auto; animation: fadeInUp 0.5s ease forwards; opacity: 0; transform: translateY(20px); }
         .content-section.active { display: block; opacity: 1; transform: translateY(0); }
 
         #home-section.active { height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
 
-        /* টাইপিং ইফেক্ট */
-        .typing-text { font-size: 3.5rem; margin-bottom: 10px; overflow: hidden; white-space: nowrap; border-right: 3px solid var(--gold-color); width: 0; animation: typing 2s steps(20, end) forwards, blink 0.75s step-end infinite; }
+        /* টাইপিং ইফেক্ট (সাইজ ছোট করা হয়েছে) */
+        .typing-text { 
+            font-size: 2.2rem; /* আগের 3.5rem থেকে কমানো হয়েছে */
+            margin-bottom: 10px; overflow: hidden; white-space: nowrap; 
+            border-right: 3px solid var(--gold-color); width: 0; 
+            animation: typing 2s steps(20, end) forwards, blink 0.75s step-end infinite; 
+        }
         
         /* সার্চ বার */
-        .search-container { margin: 20px auto 40px; width: 100%; max-width: 600px; position: relative; }
+        .search-container { margin: 10px auto 30px; width: 100%; max-width: 600px; position: relative; }
         .search-input { width: 100%; padding: 15px 20px; border-radius: 30px; border: 2px solid var(--border-color); background: var(--card-bg); color: var(--white-text); font-size: 1.1rem; outline: none; transition: 0.3s; box-shadow: var(--shadow); font-family: 'Noto Serif Bengali', serif; }
         .search-input:focus { border-color: var(--gold-color); transform: scale(1.02); }
         
@@ -138,10 +138,15 @@
         footer { text-align: center; padding: 20px; background: var(--card-bg); border-top: 1px solid var(--border-color); margin-top: auto; font-size: 0.9rem; opacity: 0.8; }
 
         /* অ্যানিমেশনসমূহ */
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0px); } }
         @keyframes typing { from { width: 0 } to { width: 100% } }
         @keyframes blink { 50% { border-color: transparent } }
+
+        /* মোবাইল রেস্পন্সিভ */
+        @media (max-width: 600px) {
+            .typing-text { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
@@ -159,31 +164,33 @@
         </div>
         <div class="nav-links" id="navLinks">
             <a onclick="showSection('home-section')">হোম পৃষ্ঠা</a>
-            <a onclick="showSection('tarjoma-cats')">তরজমা</a>
+            <a onclick="showSection('subjects-list')">বিষয়সমূহ</a>
         </div>
     </nav>
 
     <main>
-        <!-- হোম সেকশন -->
+        <!-- ১. হোম সেকশন -->
         <section id="home-section" class="content-section active">
             <h1 class="typing-text">Madrasah <span style="color:var(--gold-color)">Note</span></h1>
             <p style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 30px;">By Enayet Karim & Khubaib Ahmad</p>
             
-            <button class="category-btn" style="padding: 15px 40px; border-radius: 30px;" onclick="showSection('tarjoma-cats')">পড়া শুরু করুন ➔</button>
+            <button class="category-btn" style="padding: 15px 40px; border-radius: 30px;" onclick="showSection('subjects-list')">পড়া শুরু করুন ➔</button>
         </section>
 
-        <!-- ক্যাটাগরি ও সার্চ সেকশন -->
-        <section id="tarjoma-cats" class="content-section">
+        <!-- ২. বিষয় নির্বাচন (নতুন ধাপ) -->
+        <section id="subjects-list" class="content-section">
+            <button class="btn" style="margin-bottom:20px" onclick="showSection('home-section')">← হোম পেজে যান</button>
+            
             <div class="search-container">
                 <input type="text" id="searchInput" class="search-input" placeholder="🔍 যেকোনো প্রশ্ন বা বিষয় খুঁজুন..." onkeyup="searchNotes()">
             </div>
 
-            <div id="category-container">
-                <h2 style="text-align: center; color: var(--gold-color); margin-bottom: 30px;">ক্যাটাগরি নির্বাচন করুন</h2>
-                <div class="category-btn" onclick="showSection('boroprosno-list')">বড় প্রশ্ন</div>
-                <div class="category-btn" onclick="showSection('shanenuyul-list')">শানে নুযূল</div>
-                <div class="category-btn" style="opacity: 0.5; cursor: not-allowed;" title="খুব শীঘ্রই আসছে">তাহক্বীক (শীঘ্রই)</div>
-                <div class="category-btn" style="opacity: 0.5; cursor: not-allowed;" title="খুব শীঘ্রই আসছে">ব্যাখ্যা (শীঘ্রই)</div>
+            <div id="subject-container">
+                <h2 style="text-align: center; color: var(--gold-color); margin-bottom: 30px;">বিষয় নির্বাচন করুন</h2>
+                <div class="category-btn" onclick="showSection('tarjoma-cats')">তরজমা</div>
+                <div class="category-btn" style="opacity: 0.5; cursor: not-allowed;" title="খুব শীঘ্রই আসছে">হাদীছ শরীফ (শীঘ্রই)</div>
+                <div class="category-btn" style="opacity: 0.5; cursor: not-allowed;" title="খুব শীঘ্রই আসছে">আরবী (শীঘ্রই)</div>
+                <div class="category-btn" style="opacity: 0.5; cursor: not-allowed;" title="খুব শীঘ্রই আসছে">আক্বাইদ ফিক্বহ (শীঘ্রই)</div>
             </div>
 
             <!-- সার্চ রেজাল্ট দেখানোর জায়গা -->
@@ -193,22 +200,33 @@
             </div>
         </section>
 
-        <!-- বড় প্রশ্ন লিস্ট -->
+        <!-- ৩. তরজমা ক্যাটাগরি -->
+        <section id="tarjoma-cats" class="content-section">
+            <button class="btn" style="margin-bottom:20px" onclick="showSection('subjects-list')">← বিষয়ে ফিরে যান</button>
+            
+            <h2 style="text-align: center; color: var(--gold-color); margin-bottom: 30px;">ক্যাটাগরি নির্বাচন করুন</h2>
+            <div class="category-btn" onclick="showSection('boroprosno-list')">বড় প্রশ্ন</div>
+            <div class="category-btn" onclick="showSection('shanenuyul-list')">শানে নুযূল</div>
+            <div class="category-btn" style="opacity: 0.5; cursor: not-allowed;" title="খুব শীঘ্রই আসছে">তাহক্বীক (শীঘ্রই)</div>
+            <div class="category-btn" style="opacity: 0.5; cursor: not-allowed;" title="খুব শীঘ্রই আসছে">ব্যাখ্যা (শীঘ্রই)</div>
+        </section>
+
+        <!-- ৪. বড় প্রশ্ন লিস্ট -->
         <section id="boroprosno-list" class="content-section">
-            <button class="btn" style="margin-bottom:20px" onclick="showSection('tarjoma-cats')">← ফিরে যান</button>
+            <button class="btn" style="margin-bottom:20px" onclick="showSection('tarjoma-cats')">← ক্যাটাগরিতে ফিরে যান</button>
             <h2 style="color: var(--gold-color); margin-bottom: 20px;">বড় প্রশ্নসমূহ</h2>
             <div class="list-item" onclick="showDetail('ans1')">১. মক্কী ও মাদানী সূরা বলতে কী বুঝায়?</div>
         </section>
 
-        <!-- শানে নুযূল লিস্ট -->
+        <!-- ৪. শানে নুযূল লিস্ট -->
         <section id="shanenuyul-list" class="content-section">
-            <button class="btn" style="margin-bottom:20px" onclick="showSection('tarjoma-cats')">← ফিরে যান</button>
+            <button class="btn" style="margin-bottom:20px" onclick="showSection('tarjoma-cats')">← ক্যাটাগরিতে ফিরে যান</button>
             <h2 style="color: var(--gold-color); margin-bottom: 20px;">শানে নুযূল</h2>
             <div class="list-item" onclick="showDetail('shan15')">১৫. পবিত্র বদর জিহাদ উনার শানে নুযূল</div>
             <div class="list-item" onclick="showDetail('shan16')">১৬. পবিত্র উহুদ জিহাদ উনার সঠিক ইতিহাস</div>
         </section>
 
-        <!-- বিস্তারিত পড়ার পেজ -->
+        <!-- ৫. বিস্তারিত পড়ার পেজ (প্রশ্ন ও উত্তর) -->
         <section id="detail-view" class="content-section">
             <div class="action-btns">
                 <button id="dynamic-back-btn" class="btn">← ফিরে যান</button>
@@ -265,7 +283,7 @@
             document.getElementById(id).classList.add('active');
             document.getElementById("navLinks").classList.remove("active");
             
-            if(id === 'tarjoma-cats') {
+            if(id === 'subjects-list') {
                 document.getElementById('searchInput').value = '';
                 searchNotes(); // সার্চ রিসেট
             }
@@ -284,14 +302,14 @@
         // সার্চ ফাংশন
         function searchNotes() {
             let input = document.getElementById('searchInput').value.toLowerCase();
-            let catContainer = document.getElementById('category-container');
+            let subContainer = document.getElementById('subject-container');
             let searchResults = document.getElementById('search-results');
             let searchList = document.getElementById('search-list');
 
             searchList.innerHTML = '';
 
             if (input.length > 0) {
-                catContainer.style.display = 'none';
+                subContainer.style.display = 'none';
                 searchResults.style.display = 'block';
                 let found = false;
 
@@ -302,10 +320,10 @@
                     }
                 }
                 if (!found) {
-                    searchList.innerHTML = '<p style="color:red;">দুঃখিত, কোনো ফলাফল পাওয়া যায়নি!</p>';
+                    searchList.innerHTML = '<p style="color:red; text-align:center;">দুঃখিত, কোনো ফলাফল পাওয়া যায়নি!</p>';
                 }
             } else {
-                catContainer.style.display = 'block';
+                subContainer.style.display = 'block';
                 searchResults.style.display = 'none';
             }
         }
@@ -323,13 +341,11 @@
 
         // স্ক্রল ইভেন্ট (প্রোগ্রেস বার ও স্ক্রল টু টপ)
         window.onscroll = function() {
-            // প্রোগ্রেস বার
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             let scrolled = (winScroll / height) * 100;
             document.getElementById("myBar").style.width = scrolled + "%";
 
-            // স্ক্রল টু টপ বাটন
             let topBtn = document.getElementById("scrollTopBtn");
             if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
                 topBtn.style.display = "block";
@@ -338,9 +354,7 @@
             }
         };
 
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
     </script>
 </body>
     </html>
