@@ -7,20 +7,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
+        /* ডিফল্ট (ডার্ক মোড) ভেরিয়েবল */
         :root {
-            --bg-color: #0a0a0a; 
+            --bg-color: #0f1115; 
             --gold-color: #d4af37;
+            --gold-hover: #f0c950;
             --white-text: #ffffff;
-            --card-bg: #151515;
+            --card-bg: #1a1d24;
             --menu-bg: #111;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            --border-color: rgba(212, 175, 55, 0.2);
         }
 
+        /* লাইট মোড ভেরিয়েবল */
         [data-theme="light"] {
-            --bg-color: #ffffff;
+            --bg-color: #f4f6f9;
             --gold-color: #a68926;
-            --white-text: #1a1a1a;
-            --card-bg: #f5f5f5;
-            --menu-bg: #eee;
+            --gold-hover: #8a711c;
+            --white-text: #2c3e50;
+            --card-bg: #ffffff;
+            --menu-bg: #ffffff;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --border-color: rgba(166, 137, 38, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -28,68 +40,135 @@
             background-color: var(--bg-color);
             color: var(--white-text);
             font-family: 'Noto Serif Bengali', serif;
-            transition: 0.3s;
+            transition: background-color 0.4s ease, color 0.4s ease;
             overflow-x: hidden;
         }
 
+        /* ন্যাভিগেশন বার */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; background-color: var(--bg-color);
             position: sticky; top: 0; z-index: 1001;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            transition: background-color 0.4s ease;
         }
 
-        .logo { font-size: 1.1rem; cursor: pointer; color: var(--gold-color); font-weight: bold; }
-        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 6px; }
-        .menu-icon span { display: block; width: 28px; height: 2px; background-color: var(--gold-color); }
+        .logo { font-size: 1.3rem; cursor: pointer; color: var(--gold-color); font-weight: bold; }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
+        /* থিম টগল বাটন */
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--gold-color);
+            transition: transform 0.3s;
+            outline: none;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 6px; }
+        .menu-icon span { display: block; width: 28px; height: 3px; background-color: var(--gold-color); border-radius: 2px; transition: 0.3s;}
+
+        /* মোবাইল মেনু */
         .nav-links {
-            position: fixed; top: 0; right: -100%; height: 100vh; width: 250px;
+            position: fixed; top: 0; right: -100%; height: 100vh; width: 260px;
             background-color: var(--menu-bg); display: flex; flex-direction: column;
-            padding: 80px 30px; transition: 0.4s; z-index: 1000;
+            padding: 80px 30px; transition: 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); z-index: 1000;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
         }
         .nav-links.active { right: 0; }
-        .nav-links a { color: var(--white-text); text-decoration: none; padding: 15px 0; border-bottom: 1px solid #333; cursor: pointer; }
+        .nav-links a { 
+            color: var(--white-text); text-decoration: none; padding: 15px 0; 
+            border-bottom: 1px solid var(--border-color); cursor: pointer; 
+            font-size: 1.1rem; transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--gold-color); padding-left: 10px; }
 
-        .content-section { display: none; padding: 20px 5%; animation: fadeIn 0.4s; }
+        /* সেকশন ডিজাইন */
+        .content-section { display: none; padding: 40px 5%; animation: fadeIn 0.5s ease; max-width: 900px; margin: auto; }
         .content-section.active { display: block; }
 
         #home-section.active { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
 
+        /* বাটন ও লিস্ট ডিজাইন */
         .category-btn {
             background: var(--card-bg);
             color: var(--gold-color);
             padding: 20px; margin: 15px 0;
-            border-radius: 10px; text-align: center;
+            border-radius: 12px; text-align: center;
             font-size: 1.2rem; cursor: pointer;
-            border: 1px solid var(--gold-color);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .category-btn:hover {
+            transform: translateY(-4px);
+            background: var(--gold-color);
+            color: #fff;
+            border-color: var(--gold-color);
         }
 
         .list-item {
             background: var(--card-bg);
-            padding: 15px; margin-bottom: 10px;
-            border-radius: 5px; cursor: pointer;
-            border-left: 3px solid var(--gold-color);
+            padding: 18px 20px; margin-bottom: 15px;
+            border-radius: 8px; cursor: pointer;
+            border-left: 4px solid var(--gold-color);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        .list-item:hover {
+            transform: translateX(5px);
+            border-left: 6px solid var(--gold-hover);
         }
 
+        /* বিস্তারিত পড়ার কার্ড */
         .q-card {
             background: var(--card-bg);
-            padding: 25px; border-radius: 12px;
-            border-top: 4px solid var(--gold-color);
+            padding: 30px; border-radius: 15px;
+            border-top: 5px solid var(--gold-color);
+            box-shadow: var(--shadow);
             text-align: justify;
+            font-size: 1.1rem;
+            line-height: 1.8;
         }
-        .back-btn { color: var(--gold-color); cursor: pointer; display: inline-block; margin-bottom: 20px; font-weight: bold; }
+        .back-btn { 
+            background: var(--card-bg);
+            color: var(--gold-color); 
+            cursor: pointer; display: inline-block; 
+            margin-bottom: 25px; padding: 8px 15px;
+            border-radius: 5px; font-weight: bold;
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+        .back-btn:hover { background: var(--gold-color); color: #fff; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo" onclick="showSection('home-section')">মূল পৃষ্ঠা</div>
-        <div class="menu-icon" onclick="toggleMenu()">
-            <span></span><span></span><span></span>
+        <div class="logo" onclick="showSection('home-section')">Madrasah Note</div>
+        <div class="nav-right">
+            <!-- থিম পরিবর্তনের বাটন -->
+            <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" title="থিম পরিবর্তন করুন">☀️</button>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
         </div>
+        
         <div class="nav-links" id="navLinks">
             <a onclick="showSection('home-section')">হোম পৃষ্ঠা</a>
             <a onclick="showSection('tarjoma-cats')">তরজমা</a>
@@ -97,27 +176,28 @@
     </nav>
 
     <main id="home-section" class="content-section active">
-        <h1 style="font-size: 3rem;">Madrasah <span style="color:var(--gold-color)">Note</span></h1>
-        <p>By Enayet Karim & Khubaib Ahmad</p>
+        <h1 style="font-size: 3.5rem; margin-bottom: 10px;">Madrasah <span style="color:var(--gold-color)">Note</span></h1>
+        <p style="font-size: 1.2rem; opacity: 0.8;">By Enayet Karim & Khubaib Ahmad</p>
+        <button class="category-btn" style="margin-top: 30px; padding: 15px 30px;" onclick="showSection('tarjoma-cats')">পড়া শুরু করুন</button>
     </main>
 
     <section id="tarjoma-cats" class="content-section">
-        <h2 style="text-align: center; color: var(--gold-color);">ক্যাটাগরি নির্বাচন করুন</h2>
+        <h2 style="text-align: center; color: var(--gold-color); margin-bottom: 30px;">ক্যাটাগরি নির্বাচন করুন</h2>
         <div class="category-btn" onclick="showSection('boroprosno-list')">বড় প্রশ্ন</div>
         <div class="category-btn" onclick="showSection('shanenuyul-list')">শানে নুযূল</div>
-        <div class="category-btn">তাহক্বীক (শীঘ্রই)</div>
-        <div class="category-btn">ব্যাখ্যা (শীঘ্রই)</div>
+        <div class="category-btn" style="opacity: 0.6; cursor: not-allowed;" title="খুব শীঘ্রই আসছে">তাহক্বীক (শীঘ্রই)</div>
+        <div class="category-btn" style="opacity: 0.6; cursor: not-allowed;" title="খুব শীঘ্রই আসছে">ব্যাখ্যা (শীঘ্রই)</div>
     </section>
 
     <section id="boroprosno-list" class="content-section">
         <div class="back-btn" onclick="showSection('tarjoma-cats')">← ক্যাটাগরিতে ফিরে যান</div>
-        <h2 style="color: var(--gold-color);">বড় প্রশ্নসমূহ</h2>
+        <h2 style="color: var(--gold-color); margin-bottom: 20px;">বড় প্রশ্নসমূহ</h2>
         <div class="list-item" onclick="showDetail('ans1')">১. মক্কী ও মাদানী সূরা বলতে কী বুঝায়?</div>
     </section>
 
     <section id="shanenuyul-list" class="content-section">
         <div class="back-btn" onclick="showSection('tarjoma-cats')">← ক্যাটাগরিতে ফিরে যান</div>
-        <h2 style="color: var(--gold-color);">শানে নুযূল</h2>
+        <h2 style="color: var(--gold-color); margin-bottom: 20px;">শানে নুযূল</h2>
         <div class="list-item" onclick="showDetail('shan15')">১৫. পবিত্র বদর জিহাদ উনার শানে নুযূল</div>
         <div class="list-item" onclick="showDetail('shan16')">১৬. পবিত্র উহুদ জিহাদ উনার সঠিক ইতিহাস</div>
     </section>
@@ -128,6 +208,22 @@
     </section>
 
     <script>
+        // থিম লোড করা (Local Storage থেকে)
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', currentTheme);
+        document.getElementById('theme-btn').innerText = currentTheme === 'dark' ? '☀️' : '🌙';
+
+        // থিম পরিবর্তন করার ফাংশন
+        function toggleTheme() {
+            let body = document.body;
+            let current = body.getAttribute('data-theme');
+            let newTheme = current === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme); // থিম সেভ করা
+            document.getElementById('theme-btn').innerText = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
         const notes = {
             ans1: {
                 parent: 'boroprosno-list',
@@ -154,14 +250,14 @@
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.getElementById("navLinks").classList.remove("active");
-            window.scrollTo(0, 0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function showDetail(key) {
             const note = notes[key];
             document.getElementById('detail-content').innerHTML = `
-                <h3 style="color:var(--gold-color)">${note.title}</h3>
-                <p style="line-height:1.8">${note.content}</p>
+                <h3 style="color:var(--gold-color); margin-top: 0;">${note.title}</h3>
+                <p>${note.content}</p>
             `;
             // ব্যাক বাটনের গন্তব্য ঠিক করা
             document.getElementById('dynamic-back-btn').onclick = () => showSection(note.parent);
@@ -169,4 +265,4 @@
         }
     </script>
 </body>
-    </html>
+                </html>
