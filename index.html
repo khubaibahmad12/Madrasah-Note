@@ -15,7 +15,7 @@
             --white-text: #ffffff;
             --card-bg: #1a1d24;
             --menu-bg: #111;
-            --shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            --shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
             --border-color: rgba(212, 175, 55, 0.2);
         }
 
@@ -27,13 +27,13 @@
             --white-text: #2c3e50;
             --card-bg: #ffffff;
             --menu-bg: #ffffff;
-            --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            --border-color: rgba(166, 137, 38, 0.2);
+            --shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            --border-color: rgba(166, 137, 38, 0.3);
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
             margin: 0; padding: 0;
@@ -42,7 +42,14 @@
             font-family: 'Noto Serif Bengali', serif;
             transition: background-color 0.4s ease, color 0.4s ease;
             overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
+
+        /* প্রোগ্রেস বার */
+        .progress-container { width: 100%; height: 4px; background: transparent; position: fixed; top: 0; z-index: 1005; }
+        .progress-bar { height: 4px; background: var(--gold-color); width: 0%; transition: width 0.2s; }
 
         /* ন্যাভিগেশন বার */
         nav {
@@ -50,41 +57,30 @@
             padding: 15px 5%; background-color: var(--bg-color);
             position: sticky; top: 0; z-index: 1001;
             border-bottom: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             transition: background-color 0.4s ease;
         }
 
-        .logo { font-size: 1.3rem; cursor: pointer; color: var(--gold-color); font-weight: bold; }
+        .logo { font-size: 1.4rem; cursor: pointer; color: var(--gold-color); font-weight: bold; animation: float 3s ease-in-out infinite; }
         
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+        .nav-right { display: flex; align-items: center; gap: 20px; }
 
-        /* থিম টগল বাটন */
+        /* থিম বাটন */
         .theme-toggle {
-            cursor: pointer;
-            font-size: 1.5rem;
-            background: none;
-            border: none;
-            color: var(--gold-color);
-            transition: transform 0.3s;
-            outline: none;
+            cursor: pointer; font-size: 1.5rem; background: none; border: none;
+            color: var(--gold-color); transition: transform 0.3s; outline: none;
         }
-        .theme-toggle:hover {
-            transform: scale(1.1) rotate(15deg);
-        }
+        .theme-toggle:hover { transform: scale(1.2) rotate(20deg); }
 
         .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 6px; }
-        .menu-icon span { display: block; width: 28px; height: 3px; background-color: var(--gold-color); border-radius: 2px; transition: 0.3s;}
+        .menu-icon span { display: block; width: 30px; height: 3px; background-color: var(--gold-color); border-radius: 2px; transition: 0.3s;}
 
         /* মোবাইল মেনু */
         .nav-links {
             position: fixed; top: 0; right: -100%; height: 100vh; width: 260px;
             background-color: var(--menu-bg); display: flex; flex-direction: column;
-            padding: 80px 30px; transition: 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); z-index: 1000;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            padding: 80px 30px; transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0); z-index: 1000;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.2);
         }
         .nav-links.active { right: 0; }
         .nav-links a { 
@@ -92,177 +88,259 @@
             border-bottom: 1px solid var(--border-color); cursor: pointer; 
             font-size: 1.1rem; transition: 0.3s;
         }
-        .nav-links a:hover { color: var(--gold-color); padding-left: 10px; }
+        .nav-links a:hover { color: var(--gold-color); padding-left: 15px; }
 
-        /* সেকশন ডিজাইন */
-        .content-section { display: none; padding: 40px 5%; animation: fadeIn 0.5s ease; max-width: 900px; margin: auto; }
-        .content-section.active { display: block; }
+        /* মেইন কন্টেন্ট */
+        main { flex: 1; }
+        .content-section { display: none; padding: 40px 5%; max-width: 900px; margin: auto; animation: fadeInUp 0.6s ease forwards; opacity: 0; transform: translateY(20px); }
+        .content-section.active { display: block; opacity: 1; transform: translateY(0); }
 
-        #home-section.active { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        #home-section.active { height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
 
-        /* বাটন ও লিস্ট ডিজাইন */
+        /* টাইপিং ইফেক্ট */
+        .typing-text { font-size: 3.5rem; margin-bottom: 10px; overflow: hidden; white-space: nowrap; border-right: 3px solid var(--gold-color); width: 0; animation: typing 2s steps(20, end) forwards, blink 0.75s step-end infinite; }
+        
+        /* সার্চ বার */
+        .search-container { margin: 20px auto 40px; width: 100%; max-width: 600px; position: relative; }
+        .search-input { width: 100%; padding: 15px 20px; border-radius: 30px; border: 2px solid var(--border-color); background: var(--card-bg); color: var(--white-text); font-size: 1.1rem; outline: none; transition: 0.3s; box-shadow: var(--shadow); font-family: 'Noto Serif Bengali', serif; }
+        .search-input:focus { border-color: var(--gold-color); transform: scale(1.02); }
+        
+        /* বাটন ও লিস্ট */
         .category-btn {
-            background: var(--card-bg);
-            color: var(--gold-color);
-            padding: 20px; margin: 15px 0;
-            border-radius: 12px; text-align: center;
-            font-size: 1.2rem; cursor: pointer;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            font-weight: bold;
+            background: var(--card-bg); color: var(--gold-color); padding: 20px; margin: 15px 0;
+            border-radius: 12px; text-align: center; font-size: 1.2rem; cursor: pointer;
+            border: 1px solid var(--border-color); box-shadow: var(--shadow); transition: all 0.3s ease; font-weight: bold;
         }
-        .category-btn:hover {
-            transform: translateY(-4px);
-            background: var(--gold-color);
-            color: #fff;
-            border-color: var(--gold-color);
-        }
+        .category-btn:hover { transform: translateY(-5px) scale(1.02); background: var(--gold-color); color: #fff; border-color: var(--gold-color); }
 
         .list-item {
-            background: var(--card-bg);
-            padding: 18px 20px; margin-bottom: 15px;
-            border-radius: 8px; cursor: pointer;
-            border-left: 4px solid var(--gold-color);
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
+            background: var(--card-bg); padding: 18px 20px; margin-bottom: 15px; border-radius: 8px; cursor: pointer;
+            border-left: 4px solid var(--gold-color); box-shadow: var(--shadow); transition: all 0.3s ease; font-size: 1.1rem;
         }
-        .list-item:hover {
-            transform: translateX(5px);
-            border-left: 6px solid var(--gold-hover);
-        }
+        .list-item:hover { transform: translateX(10px); border-left: 6px solid var(--gold-hover); }
 
         /* বিস্তারিত পড়ার কার্ড */
-        .q-card {
-            background: var(--card-bg);
-            padding: 30px; border-radius: 15px;
-            border-top: 5px solid var(--gold-color);
-            box-shadow: var(--shadow);
-            text-align: justify;
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-        .back-btn { 
-            background: var(--card-bg);
-            color: var(--gold-color); 
-            cursor: pointer; display: inline-block; 
-            margin-bottom: 25px; padding: 8px 15px;
-            border-radius: 5px; font-weight: bold;
-            border: 1px solid var(--border-color);
-            transition: 0.3s;
-        }
-        .back-btn:hover { background: var(--gold-color); color: #fff; }
+        .q-card { background: var(--card-bg); padding: 30px; border-radius: 15px; border-top: 5px solid var(--gold-color); box-shadow: var(--shadow); text-align: justify; font-size: 1.15rem; line-height: 1.8; position: relative; }
+        
+        .action-btns { display: flex; justify-content: space-between; margin-bottom: 25px; }
+        .btn { background: var(--card-bg); color: var(--gold-color); cursor: pointer; padding: 8px 15px; border-radius: 5px; font-weight: bold; border: 1px solid var(--border-color); transition: 0.3s; display: inline-flex; align-items: center; gap: 5px; font-family: inherit;}
+        .btn:hover { background: var(--gold-color); color: #fff; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        /* স্ক্রল টু টপ */
+        #scrollTopBtn { display: none; position: fixed; bottom: 30px; right: 30px; z-index: 99; font-size: 20px; border: none; outline: none; background-color: var(--gold-color); color: white; cursor: pointer; padding: 15px; border-radius: 50%; box-shadow: var(--shadow); transition: 0.3s; width: 50px; height: 50px; text-align: center; line-height: 20px; }
+        #scrollTopBtn:hover { background-color: var(--gold-hover); transform: translateY(-5px); }
+
+        /* টোস্ট মেসেজ */
+        #toast { visibility: hidden; min-width: 250px; background-color: var(--gold-color); color: #fff; text-align: center; border-radius: 8px; padding: 16px; position: fixed; z-index: 1002; left: 50%; bottom: 30px; transform: translateX(-50%); font-weight: bold; box-shadow: var(--shadow); opacity: 0; transition: opacity 0.5s, bottom 0.5s; font-size: 1.1rem;}
+        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
+
+        /* ফুটার */
+        footer { text-align: center; padding: 20px; background: var(--card-bg); border-top: 1px solid var(--border-color); margin-top: auto; font-size: 0.9rem; opacity: 0.8; }
+
+        /* অ্যানিমেশনসমূহ */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0px); } }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink { 50% { border-color: transparent } }
     </style>
 </head>
 <body>
 
+    <!-- প্রোগ্রেস বার -->
+    <div class="progress-container"><div class="progress-bar" id="myBar"></div></div>
+
     <nav>
         <div class="logo" onclick="showSection('home-section')">Madrasah Note</div>
         <div class="nav-right">
-            <!-- থিম পরিবর্তনের বাটন -->
             <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" title="থিম পরিবর্তন করুন">☀️</button>
             <div class="menu-icon" onclick="toggleMenu()">
                 <span></span><span></span><span></span>
             </div>
         </div>
-        
         <div class="nav-links" id="navLinks">
             <a onclick="showSection('home-section')">হোম পৃষ্ঠা</a>
             <a onclick="showSection('tarjoma-cats')">তরজমা</a>
         </div>
     </nav>
 
-    <main id="home-section" class="content-section active">
-        <h1 style="font-size: 3.5rem; margin-bottom: 10px;">Madrasah <span style="color:var(--gold-color)">Note</span></h1>
-        <p style="font-size: 1.2rem; opacity: 0.8;">By Enayet Karim & Khubaib Ahmad</p>
-        <button class="category-btn" style="margin-top: 30px; padding: 15px 30px;" onclick="showSection('tarjoma-cats')">পড়া শুরু করুন</button>
+    <main>
+        <!-- হোম সেকশন -->
+        <section id="home-section" class="content-section active">
+            <h1 class="typing-text">Madrasah <span style="color:var(--gold-color)">Note</span></h1>
+            <p style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 30px;">By Enayet Karim & Khubaib Ahmad</p>
+            
+            <button class="category-btn" style="padding: 15px 40px; border-radius: 30px;" onclick="showSection('tarjoma-cats')">পড়া শুরু করুন ➔</button>
+        </section>
+
+        <!-- ক্যাটাগরি ও সার্চ সেকশন -->
+        <section id="tarjoma-cats" class="content-section">
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 যেকোনো প্রশ্ন বা বিষয় খুঁজুন..." onkeyup="searchNotes()">
+            </div>
+
+            <div id="category-container">
+                <h2 style="text-align: center; color: var(--gold-color); margin-bottom: 30px;">ক্যাটাগরি নির্বাচন করুন</h2>
+                <div class="category-btn" onclick="showSection('boroprosno-list')">বড় প্রশ্ন</div>
+                <div class="category-btn" onclick="showSection('shanenuyul-list')">শানে নুযূল</div>
+                <div class="category-btn" style="opacity: 0.5; cursor: not-allowed;" title="খুব শীঘ্রই আসছে">তাহক্বীক (শীঘ্রই)</div>
+                <div class="category-btn" style="opacity: 0.5; cursor: not-allowed;" title="খুব শীঘ্রই আসছে">ব্যাখ্যা (শীঘ্রই)</div>
+            </div>
+
+            <!-- সার্চ রেজাল্ট দেখানোর জায়গা -->
+            <div id="search-results" style="display: none;">
+                <h3 style="color: var(--gold-color); margin-bottom: 20px;">অনুসন্ধানের ফলাফল:</h3>
+                <div id="search-list"></div>
+            </div>
+        </section>
+
+        <!-- বড় প্রশ্ন লিস্ট -->
+        <section id="boroprosno-list" class="content-section">
+            <button class="btn" style="margin-bottom:20px" onclick="showSection('tarjoma-cats')">← ফিরে যান</button>
+            <h2 style="color: var(--gold-color); margin-bottom: 20px;">বড় প্রশ্নসমূহ</h2>
+            <div class="list-item" onclick="showDetail('ans1')">১. মক্কী ও মাদানী সূরা বলতে কী বুঝায়?</div>
+        </section>
+
+        <!-- শানে নুযূল লিস্ট -->
+        <section id="shanenuyul-list" class="content-section">
+            <button class="btn" style="margin-bottom:20px" onclick="showSection('tarjoma-cats')">← ফিরে যান</button>
+            <h2 style="color: var(--gold-color); margin-bottom: 20px;">শানে নুযূল</h2>
+            <div class="list-item" onclick="showDetail('shan15')">১৫. পবিত্র বদর জিহাদ উনার শানে নুযূল</div>
+            <div class="list-item" onclick="showDetail('shan16')">১৬. পবিত্র উহুদ জিহাদ উনার সঠিক ইতিহাস</div>
+        </section>
+
+        <!-- বিস্তারিত পড়ার পেজ -->
+        <section id="detail-view" class="content-section">
+            <div class="action-btns">
+                <button id="dynamic-back-btn" class="btn">← ফিরে যান</button>
+                <button class="btn" onclick="copyText()">📋 কপি করুন</button>
+            </div>
+            <div class="q-card">
+                <h3 id="detail-title" style="color:var(--gold-color); margin-top: 0; font-size: 1.5rem;"></h3>
+                <p id="detail-text"></p>
+            </div>
+        </section>
     </main>
 
-    <section id="tarjoma-cats" class="content-section">
-        <h2 style="text-align: center; color: var(--gold-color); margin-bottom: 30px;">ক্যাটাগরি নির্বাচন করুন</h2>
-        <div class="category-btn" onclick="showSection('boroprosno-list')">বড় প্রশ্ন</div>
-        <div class="category-btn" onclick="showSection('shanenuyul-list')">শানে নুযূল</div>
-        <div class="category-btn" style="opacity: 0.6; cursor: not-allowed;" title="খুব শীঘ্রই আসছে">তাহক্বীক (শীঘ্রই)</div>
-        <div class="category-btn" style="opacity: 0.6; cursor: not-allowed;" title="খুব শীঘ্রই আসছে">ব্যাখ্যা (শীঘ্রই)</div>
-    </section>
+    <!-- স্ক্রল টু টপ বাটন -->
+    <button id="scrollTopBtn" onclick="scrollToTop()" title="উপরে যান">⬆</button>
 
-    <section id="boroprosno-list" class="content-section">
-        <div class="back-btn" onclick="showSection('tarjoma-cats')">← ক্যাটাগরিতে ফিরে যান</div>
-        <h2 style="color: var(--gold-color); margin-bottom: 20px;">বড় প্রশ্নসমূহ</h2>
-        <div class="list-item" onclick="showDetail('ans1')">১. মক্কী ও মাদানী সূরা বলতে কী বুঝায়?</div>
-    </section>
+    <!-- টোস্ট নোটিফিকেশন -->
+    <div id="toast">কপি করা হয়েছে! ✔️</div>
 
-    <section id="shanenuyul-list" class="content-section">
-        <div class="back-btn" onclick="showSection('tarjoma-cats')">← ক্যাটাগরিতে ফিরে যান</div>
-        <h2 style="color: var(--gold-color); margin-bottom: 20px;">শানে নুযূল</h2>
-        <div class="list-item" onclick="showDetail('shan15')">১৫. পবিত্র বদর জিহাদ উনার শানে নুযূল</div>
-        <div class="list-item" onclick="showDetail('shan16')">১৬. পবিত্র উহুদ জিহাদ উনার সঠিক ইতিহাস</div>
-    </section>
-
-    <section id="detail-view" class="content-section">
-        <div id="dynamic-back-btn" class="back-btn">← ফিরে যান</div>
-        <div id="detail-content" class="q-card"></div>
-    </section>
+    <footer>
+        &copy; 2024 Madrasah Note | Developed for Students
+    </footer>
 
     <script>
-        // থিম লোড করা (Local Storage থেকে)
+        // থিম সিস্টেম
         const currentTheme = localStorage.getItem('theme') || 'dark';
         document.body.setAttribute('data-theme', currentTheme);
         document.getElementById('theme-btn').innerText = currentTheme === 'dark' ? '☀️' : '🌙';
 
-        // থিম পরিবর্তন করার ফাংশন
         function toggleTheme() {
             let body = document.body;
-            let current = body.getAttribute('data-theme');
-            let newTheme = current === 'dark' ? 'light' : 'dark';
-            
+            let newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme); // থিম সেভ করা
+            localStorage.setItem('theme', newTheme);
             document.getElementById('theme-btn').innerText = newTheme === 'dark' ? '☀️' : '🌙';
         }
 
+        // ডাটাবেজ (Notes)
         const notes = {
-            ans1: {
-                parent: 'boroprosno-list',
-                title: "১. মক্কী ও মাদানী সূরা বলতে কী বুঝায়?",
-                content: "হিজরতের পূর্বে নাযিল হওয়া পবিত্র সূরাগুলো হলো মক্কী সূরা (৮৬টি)। আর হিজরতের পর নাযিল হওয়া সূরাগুলো হলো মাদানী সূরা (২৮টি)।"
-            },
-            shan15: {
-                parent: 'shanenuyul-list',
-                title: "১৫. পবিত্র বদর জিহাদ উনার শানে নুযূল",
-                content: "দ্বিতীয় হিজরীর সম্মানিত ১৭ই রমাদ্বান শরীফে পবিত্র মদীনা শরীফ উনার থেকে ৮০ মাইল দূরে বদর নামক স্থানে এই সম্মানিত বদর জিহাদ সংঘটিত হন। এই সম্মানিত বদর জিহাদে মুসলমান উনাদের সংখ্যা ছিলেন ৩১৩ জন আর অপরদিকে কাফিরদের সংখ্যা ছিলো ১০০০ জন। এই সম্মানিত বদর জিহাদে ১৪ জন মুসলমান উনারা শহীদ হন, ৭০ জন কাফির মারা যায় এবং ৭০ জন কাফির বন্দি হয়। এছাড়া বাকি সমস্ত কাফির গুলো পালিয়ে যায়। আর মুসলমান উনারা বিজয় লাভ করেন। সুবহানাল্লাহ।"
-            },
-            shan16: {
-                parent: 'shanenuyul-list',
-                title: "১৬. পবিত্র উহুদ জিহাদ উনার সঠিক ইতিহাস ও বিজয়",
-                content: "পবিত্র উহুদ জিহাদ মল্লযুদ্ধের মাধ্যমে শুরু হলে একপর্যায়ে তা কঠিনরূপ ধারণ করে, এতে কাফিররা দলে দলে পালিয়ে যেতে থাকে। একসময় পুরো ময়দান ফাঁকা হয়ে যায়। মুসলিম বাহিনী বিজয় হিসেবে জিহাদের মালামাল গুছানো শুরু করেন। এমতাবস্থায় জিহাদের নিয়ম-নীতি ভঙ্গ করে কাফিররা পিছন দিকের গিরিপথ দিয়ে আক্রমণ করে। এতে কাফিররা বিশৃঙ্খলা সৃষ্টির চেষ্টা করলেও তা ছিলো সাময়িক। মুহূর্তের মধ্যেই মুসলমান উনারা অপ্রস্তুত থাকা সত্ত্বেও কাফিরদের সমুচিত জওয়াব দেন। বিপুল ক্ষয়-ক্ষতি নিয়ে সমস্ত কাফিররা পুনরায় পালিয়ে যায়। নূরে মুজাসসাম হাবীবুল্লাহ হুযূর পাক ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম উনার সম্মানার্থে মহান আল্লাহ পাক তিনি উহুদ জিহাদেও মুসলমান উনাদেরকে সুস্পষ্ট বিজয় দান করেন। কাজেই পবিত্র উহুদ জিহাদ নিয়ে ঐতিহাসিকরা যে সমস্ত মিথ্যা, ভিত্তিহীন মন্তব্য করে তা শুদ্ধ নয়। যেমন- উহুদ জিহাদে নাকি মুসলমানরা পরাজিত হয়েছেন। নাউযুবিল্লাহ! মুসলমান উনারা নাকি গণিমতের মালামাল লুট করতে গিয়ে আক্রান্ত হয়েছেন। নাউযুবিল্লাহ! ইত্যাদি। মূলত, বিশ্বের ইতিহাসে কোনো জিহাদে মুসলমান উনারা পরাজিত হননি, বরং প্রত্যেক জিহাদেই মুসলমান উনারা বিজয়ী হয়েছেন। এমনকি উহুদ জিহাদেও মুসলমান উনারাই বিজয়ী হয়েছেন। আর কাফিররাই পরাজিত হয়েছে। কেননা তারা যদি বিজয়ী হতো, তাহলে তারা গনিমত ও বন্দি লাভ করতো। কিন্তু যেহেতু তারা পরাজিত হয়েছে, সেহেতু তারা কোনো গনিমত পায়নি এবং কাউকে বন্দিও করতে পারেনি। বরং তারা পালিয়ে গেছে। কাজেই মুসলমান উনারাই বিজয়ী হয়েছেন। এবং উনারা গনিমতের মাল লাভ করেছেন এবং কাফিরদের কয়েকজনকে বন্দিও করেছেন। আর এটাই ছহীহ ও বিশুদ্ধ আক্বীদা।"
-            }
+            ans1: { parent: 'boroprosno-list', title: "১. মক্কী ও মাদানী সূরা বলতে কী বুঝায়?", content: "হিজরতের পূর্বে নাযিল হওয়া পবিত্র সূরাগুলো হলো মক্কী সূরা (৮৬টি)। আর হিজরতের পর নাযিল হওয়া সূরাগুলো হলো মাদানী সূরা (২৮টি)।" },
+            shan15: { parent: 'shanenuyul-list', title: "১৫. পবিত্র বদর জিহাদ উনার শানে নুযূল", content: "দ্বিতীয় হিজরীর সম্মানিত ১৭ই রমাদ্বান শরীফে পবিত্র মদীনা শরীফ উনার থেকে ৮০ মাইল দূরে বদর নামক স্থানে এই সম্মানিত বদর জিহাদ সংঘটিত হন। এই সম্মানিত বদর জিহাদে মুসলমান উনাদের সংখ্যা ছিলেন ৩১৩ জন আর অপরদিকে কাফিরদের সংখ্যা ছিলো ১০০০ জন। এই সম্মানিত বদর জিহাদে ১৪ জন মুসলমান উনারা শহীদ হন, ৭০ জন কাফির মারা যায় এবং ৭০ জন কাফির বন্দি হয়। এছাড়া বাকি সমস্ত কাফির গুলো পালিয়ে যায়। আর মুসলমান উনারা বিজয় লাভ করেন। সুবহানাল্লাহ।" },
+            shan16: { parent: 'shanenuyul-list', title: "১৬. পবিত্র উহুদ জিহাদ উনার সঠিক ইতিহাস ও বিজয়", content: "পবিত্র উহুদ জিহাদ মল্লযুদ্ধের মাধ্যমে শুরু হলে একপর্যায়ে তা কঠিনরূপ ধারণ করে, এতে কাফিররা দলে দলে পালিয়ে যেতে থাকে। একসময় পুরো ময়দান ফাঁকা হয়ে যায়। মুসলিম বাহিনী বিজয় হিসেবে জিহাদের মালামাল গুছানো শুরু করেন। এমতাবস্থায় জিহাদের নিয়ম-নীতি ভঙ্গ করে কাফিররা পিছন দিকের গিরিপথ দিয়ে আক্রমণ করে। এতে কাফিররা বিশৃঙ্খলা সৃষ্টির চেষ্টা করলেও তা ছিলো সাময়িক। মুহূর্তের মধ্যেই মুসলমান উনারা অপ্রস্তুত থাকা সত্ত্বেও কাফিরদের সমুচিত জওয়াব দেন। বিপুল ক্ষয়-ক্ষতি নিয়ে সমস্ত কাফিররা পুনরায় পালিয়ে যায়। নূরে মুজাসসাম হাবীবুল্লাহ হুযূর পাক ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম উনার সম্মানার্থে মহান আল্লাহ পাক তিনি উহুদ জিহাদেও মুসলমান উনাদেরকে সুস্পষ্ট বিজয় দান করেন। কাজেই পবিত্র উহুদ জিহাদ নিয়ে ঐতিহাসিকরা যে সমস্ত মিথ্যা, ভিত্তিহীন মন্তব্য করে তা শুদ্ধ নয়। যেমন- উহুদ জিহাদে নাকি মুসলমানরা পরাজিত হয়েছেন। নাউযুবিল্লাহ! মুসলমান উনারা নাকি গণিমতের মালামাল লুট করতে গিয়ে আক্রান্ত হয়েছেন। নাউযুবিল্লাহ! ইত্যাদি। মূলত, বিশ্বের ইতিহাসে কোনো জিহাদে মুসলমান উনারা পরাজিত হননি, বরং প্রত্যেক জিহাদেই মুসলমান উনারা বিজয়ী হয়েছেন। এমনকি উহুদ জিহাদেও মুসলমান উনারাই বিজয়ী হয়েছেন। আর কাফিররাই পরাজিত হয়েছে। কেননা তারা যদি বিজয়ী হতো, তাহলে তারা গনিমত ও বন্দি লাভ করতো। কিন্তু যেহেতু তারা পরাজিত হয়েছে, সেহেতু তারা কোনো গনিমত পায়নি এবং কাউকে বন্দিও করতে পারেনি। বরং তারা পালিয়ে গেছে। কাজেই মুসলমান উনারাই বিজয়ী হয়েছেন। এবং উনারা গনিমতের মাল লাভ করেছেন এবং কাফিরদের কয়েকজনকে বন্দিও করেছেন। আর এটাই ছহীহ ও বিশুদ্ধ আক্বীদা।" }
         };
 
-        function toggleMenu() {
-            document.getElementById("navLinks").classList.toggle("active");
-        }
+        // মেনু ও সেকশন পরিবর্তন
+        function toggleMenu() { document.getElementById("navLinks").classList.toggle("active"); }
 
         function showSection(id) {
-            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(s => {
+                s.classList.remove('active');
+                s.style.animation = 'none'; 
+                s.offsetHeight; // ট্রিগার রিফ্লো
+                s.style.animation = null; 
+            });
             document.getElementById(id).classList.add('active');
             document.getElementById("navLinks").classList.remove("active");
+            
+            if(id === 'tarjoma-cats') {
+                document.getElementById('searchInput').value = '';
+                searchNotes(); // সার্চ রিসেট
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // বিস্তারিত দেখানো
         function showDetail(key) {
             const note = notes[key];
-            document.getElementById('detail-content').innerHTML = `
-                <h3 style="color:var(--gold-color); margin-top: 0;">${note.title}</h3>
-                <p>${note.content}</p>
-            `;
-            // ব্যাক বাটনের গন্তব্য ঠিক করা
+            document.getElementById('detail-title').innerText = note.title;
+            document.getElementById('detail-text').innerText = note.content;
             document.getElementById('dynamic-back-btn').onclick = () => showSection(note.parent);
             showSection('detail-view');
         }
+
+        // সার্চ ফাংশন
+        function searchNotes() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let catContainer = document.getElementById('category-container');
+            let searchResults = document.getElementById('search-results');
+            let searchList = document.getElementById('search-list');
+
+            searchList.innerHTML = '';
+
+            if (input.length > 0) {
+                catContainer.style.display = 'none';
+                searchResults.style.display = 'block';
+                let found = false;
+
+                for (let key in notes) {
+                    if (notes[key].title.toLowerCase().includes(input) || notes[key].content.toLowerCase().includes(input)) {
+                        found = true;
+                        searchList.innerHTML += `<div class="list-item" onclick="showDetail('${key}')">${notes[key].title}</div>`;
+                    }
+                }
+                if (!found) {
+                    searchList.innerHTML = '<p style="color:red;">দুঃখিত, কোনো ফলাফল পাওয়া যায়নি!</p>';
+                }
+            } else {
+                catContainer.style.display = 'block';
+                searchResults.style.display = 'none';
+            }
+        }
+
+        // কপি ফাংশন
+        function copyText() {
+            let title = document.getElementById('detail-title').innerText;
+            let text = document.getElementById('detail-text').innerText;
+            navigator.clipboard.writeText(title + "\n\n" + text).then(() => {
+                let toast = document.getElementById("toast");
+                toast.className = "show";
+                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+            });
+        }
+
+        // স্ক্রল ইভেন্ট (প্রোগ্রেস বার ও স্ক্রল টু টপ)
+        window.onscroll = function() {
+            // প্রোগ্রেস বার
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";
+
+            // স্ক্রল টু টপ বাটন
+            let topBtn = document.getElementById("scrollTopBtn");
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                topBtn.style.display = "block";
+            } else {
+                topBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
-</html>
+    </html>
