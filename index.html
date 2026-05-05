@@ -32,7 +32,6 @@
             overflow-x: hidden;
         }
 
-        /* Navigation */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; background-color: var(--bg-color);
@@ -52,50 +51,34 @@
         .nav-links.active { right: 0; }
         .nav-links a { color: var(--white-text); text-decoration: none; padding: 15px 0; border-bottom: 1px solid #333; cursor: pointer; }
 
-        /* Content Sections */
         .content-section { display: none; padding: 20px 5%; animation: fadeIn 0.4s; }
         .content-section.active { display: block; }
 
-        /* Home Style */
         #home-section.active { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
 
-        /* Button & List Styles */
         .category-btn {
             background: var(--card-bg);
             color: var(--gold-color);
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 1.2rem;
-            cursor: pointer;
+            padding: 20px; margin: 15px 0;
+            border-radius: 10px; text-align: center;
+            font-size: 1.2rem; cursor: pointer;
             border: 1px solid var(--gold-color);
-            transition: 0.3s;
         }
-        .category-btn:hover { background: var(--gold-color); color: #000; }
 
         .list-item {
             background: var(--card-bg);
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            cursor: pointer;
+            padding: 15px; margin-bottom: 10px;
+            border-radius: 5px; cursor: pointer;
             border-left: 3px solid var(--gold-color);
         }
 
-        /* Question Detail View */
         .q-card {
             background: var(--card-bg);
             padding: 25px; border-radius: 12px;
             border-top: 4px solid var(--gold-color);
+            text-align: justify;
         }
-        .back-btn {
-            color: var(--gold-color);
-            cursor: pointer;
-            display: inline-block;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
+        .back-btn { color: var(--gold-color); cursor: pointer; display: inline-block; margin-bottom: 20px; font-weight: bold; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
@@ -110,7 +93,6 @@
         <div class="nav-links" id="navLinks">
             <a onclick="showSection('home-section')">হোম পৃষ্ঠা</a>
             <a onclick="showSection('tarjoma-cats')">তরজমা</a>
-            <a href="#">হাদীছ শরীফ</a>
         </div>
     </nav>
 
@@ -122,44 +104,45 @@
     <section id="tarjoma-cats" class="content-section">
         <h2 style="text-align: center; color: var(--gold-color);">ক্যাটাগরি নির্বাচন করুন</h2>
         <div class="category-btn" onclick="showSection('boroprosno-list')">বড় প্রশ্ন</div>
-        <div class="category-btn">শানে নুযূল (শীঘ্রই আসছে)</div>
-        <div class="category-btn">তাহক্বীক (শীঘ্রই আসছে)</div>
-        <div class="category-btn">ব্যাখ্যা (শীঘ্রই আসছে)</div>
+        <div class="category-btn" onclick="showSection('shanenuyul-list')">শানে নুযূল</div>
+        <div class="category-btn">তাহক্বীক (শীঘ্রই)</div>
+        <div class="category-btn">ব্যাখ্যা (শীঘ্রই)</div>
     </section>
 
     <section id="boroprosno-list" class="content-section">
         <div class="back-btn" onclick="showSection('tarjoma-cats')">← ক্যাটাগরিতে ফিরে যান</div>
         <h2 style="color: var(--gold-color);">বড় প্রশ্নসমূহ</h2>
         <div class="list-item" onclick="showDetail('ans1')">১. মক্কী ও মাদানী সূরা বলতে কী বুঝায়?</div>
-        <div class="list-item" onclick="showDetail('ans2')">২. তাফসীর ও তা'উয়ীল উনাদের মধ্যে পার্থক্য</div>
-        <div class="list-item" onclick="showDetail('ans3')">৩. গাজওয়া কাকে বলা হয়?</div>
-        <div class="list-item" onclick="showDetail('ans4')">৪. কাফিরদের বন্ধু হিসেবে গ্রহণের হুকুম</div>
+    </section>
+
+    <section id="shanenuyul-list" class="content-section">
+        <div class="back-btn" onclick="showSection('tarjoma-cats')">← ক্যাটাগরিতে ফিরে যান</div>
+        <h2 style="color: var(--gold-color);">শানে নুযূল</h2>
+        <div class="list-item" onclick="showDetail('shan15')">১৫. পবিত্র বদর জিহাদ উনার শানে নুযূল</div>
+        <div class="list-item" onclick="showDetail('shan16')">১৬. পবিত্র উহুদ জিহাদ উনার সঠিক ইতিহাস</div>
     </section>
 
     <section id="detail-view" class="content-section">
-        <div class="back-btn" onclick="showSection('boroprosno-list')">← তালিকায় ফিরে যান</div>
-        <div id="detail-content" class="q-card">
-            </div>
+        <div id="dynamic-back-btn" class="back-btn">← ফিরে যান</div>
+        <div id="detail-content" class="q-card"></div>
     </section>
 
     <script>
-        // নোটের তথ্যসমূহ (Data)
         const notes = {
             ans1: {
+                parent: 'boroprosno-list',
                 title: "১. মক্কী ও মাদানী সূরা বলতে কী বুঝায়?",
                 content: "হিজরতের পূর্বে নাযিল হওয়া পবিত্র সূরাগুলো হলো মক্কী সূরা (৮৬টি)। আর হিজরতের পর নাযিল হওয়া সূরাগুলো হলো মাদানী সূরা (২৮টি)।"
             },
-            ans2: {
-                title: "২. তাফসীর ও তা'উয়ীল উনাদের মধ্যে পার্থক্য",
-                content: "তাফসীর হলো আমভাবে যেকোনো ব্যাখ্যা। আর তা'উয়ীল হলো খাছভাবে পবিত্র কুরআন শরীফের অন্তর্নিহিত গূঢ় ব্যাখ্যা যা মহান আল্লাহ পাক ও উনার হাবীব ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম উনারাই ভালো জানেন।"
+            shan15: {
+                parent: 'shanenuyul-list',
+                title: "১৫. পবিত্র বদর জিহাদ উনার শানে নুযূল",
+                content: "দ্বিতীয় হিজরীর সম্মানিত ১৭ই রমাদ্বান শরীফে পবিত্র মদীনা শরীফ উনার থেকে ৮০ মাইল দূরে বদর নামক স্থানে এই সম্মানিত বদর জিহাদ সংঘটিত হন। এই সম্মানিত বদর জিহাদে মুসলমান উনাদের সংখ্যা ছিলেন ৩১৩ জন আর অপরদিকে কাফিরদের সংখ্যা ছিলো ১০০০ জন। এই সম্মানিত বদর জিহাদে ১৪ জন মুসলমান উনারা শহীদ হন, ৭০ জন কাফির মারা যায় এবং ৭০ জন কাফির বন্দি হয়। এছাড়া বাকি সমস্ত কাফির গুলো পালিয়ে যায়। আর মুসলমান উনারা বিজয় লাভ করেন। সুবহানাল্লাহ।"
             },
-            ans3: {
-                title: "৩. গাজওয়া কাকে বলা হয়?",
-                content: "যে সমস্ত জিহাদে স্বয়ং নূরে মুজাসসাম হাবীবুল্লাহ হুযূর পাক ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম নিজে উপস্থিত ছিলেন, সেগুলোকে গাজওয়া বলা হয়।"
-            },
-            ans4: {
-                title: "৪. কাফিরদের বন্ধু হিসেবে গ্রহণের হুকুম",
-                content: "কোনো মুসলমানের জন্য কাফিরদের বন্ধু হিসেবে গ্রহণ করা জায়েয নেই। পবিত্র কুরআন শরীফ ও হাদীছ শরীফ উনার আলোকে এটি স্পষ্টভাবে নিষেধ করা হয়েছে।"
+            shan16: {
+                parent: 'shanenuyul-list',
+                title: "১৬. পবিত্র উহুদ জিহাদ উনার সঠিক ইতিহাস ও বিজয়",
+                content: "পবিত্র উহুদ জিহাদ মল্লযুদ্ধের মাধ্যমে শুরু হলে একপর্যায়ে তা কঠিনরূপ ধারণ করে, এতে কাফিররা দলে দলে পালিয়ে যেতে থাকে। একসময় পুরো ময়দান ফাঁকা হয়ে যায়। মুসলিম বাহিনী বিজয় হিসেবে জিহাদের মালামাল গুছানো শুরু করেন। এমতাবস্থায় জিহাদের নিয়ম-নীতি ভঙ্গ করে কাফিররা পিছন দিকের গিরিপথ দিয়ে আক্রমণ করে। এতে কাফিররা বিশৃঙ্খলা সৃষ্টির চেষ্টা করলেও তা ছিলো সাময়িক। মুহূর্তের মধ্যেই মুসলমান উনারা অপ্রস্তুত থাকা সত্ত্বেও কাফিরদের সমুচিত জওয়াব দেন। বিপুল ক্ষয়-ক্ষতি নিয়ে সমস্ত কাফিররা পুনরায় পালিয়ে যায়। নূরে মুজাসসাম হাবীবুল্লাহ হুযূর পাক ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম উনার সম্মানার্থে মহান আল্লাহ পাক তিনি উহুদ জিহাদেও মুসলমান উনাদেরকে সুস্পষ্ট বিজয় দান করেন। কাজেই পবিত্র উহুদ জিহাদ নিয়ে ঐতিহাসিকরা যে সমস্ত মিথ্যা, ভিত্তিহীন মন্তব্য করে তা শুদ্ধ নয়। যেমন- উহুদ জিহাদে নাকি মুসলমানরা পরাজিত হয়েছেন। নাউযুবিল্লাহ! মুসলমান উনারা নাকি গণিমতের মালামাল লুট করতে গিয়ে আক্রান্ত হয়েছেন। নাউযুবিল্লাহ! ইত্যাদি। মূলত, বিশ্বের ইতিহাসে কোনো জিহাদে মুসলমান উনারা পরাজিত হননি, বরং প্রত্যেক জিহাদেই মুসলমান উনারা বিজয়ী হয়েছেন। এমনকি উহুদ জিহাদেও মুসলমান উনারাই বিজয়ী হয়েছেন। আর কাফিররাই পরাজিত হয়েছে। কেননা তারা যদি বিজয়ী হতো, তাহলে তারা গনিমত ও বন্দি লাভ করতো। কিন্তু যেহেতু তারা পরাজিত হয়েছে, সেহেতু তারা কোনো গনিমত পায়নি এবং কাউকে বন্দিও করতে পারেনি। বরং তারা পালিয়ে গেছে। কাজেই মুসলমান উনারাই বিজয়ী হয়েছেন। এবং উনারা গনিমতের মাল লাভ করেছেন এবং কাফিরদের কয়েকজনকে বন্দিও করেছেন। আর এটাই ছহীহ ও বিশুদ্ধ আক্বীদা।"
             }
         };
 
@@ -168,30 +151,22 @@
         }
 
         function showSection(id) {
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.getElementById("navLinks").classList.remove("active");
             window.scrollTo(0, 0);
         }
 
-        // নির্দিষ্ট প্রশ্নের উত্তর দেখানোর ফাংশন
-        function showDetail(noteKey) {
-            const note = notes[noteKey];
-            const container = document.getElementById('detail-content');
-            container.innerHTML = `
+        function showDetail(key) {
+            const note = notes[key];
+            document.getElementById('detail-content').innerHTML = `
                 <h3 style="color:var(--gold-color)">${note.title}</h3>
                 <p style="line-height:1.8">${note.content}</p>
             `;
+            // ব্যাক বাটনের গন্তব্য ঠিক করা
+            document.getElementById('dynamic-back-btn').onclick = () => showSection(note.parent);
             showSection('detail-view');
         }
-
-        // বাইরের ক্লিকে মেনু বন্ধ
-        document.addEventListener('click', function(e) {
-            if (!document.getElementById("navLinks").contains(e.target) && !document.querySelector(".menu-icon").contains(e.target)) {
-                document.getElementById("navLinks").classList.remove("active");
-            }
-        });
     </script>
 </body>
-</html>
+    </html>
