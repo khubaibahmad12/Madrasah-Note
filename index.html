@@ -11,26 +11,28 @@
             --bg-color: #0a0a0a; 
             --gold-color: #d4af37;
             --white-text: #ffffff;
-            --author-text: #555;
-            --menu-bg: rgba(15, 15, 15, 0.98);
-            --card-bg: #111;
+            --author-text: #666;
+            --menu-bg: rgba(10, 10, 10, 0.98);
+            --card-bg: #151515;
+            --card-text: #e0e0e0;
         }
 
         [data-theme="light"] {
-            --bg-color: #ffffff;
+            --bg-color: #fdfdfd;
             --gold-color: #a68926;
             --white-text: #1a1a1a;
-            --author-text: #777;
-            --menu-bg: rgba(245, 245, 245, 0.98);
-            --card-bg: #f2f2f2;
+            --author-text: #888;
+            --menu-bg: rgba(255, 255, 255, 0.98);
+            --card-bg: #ffffff;
+            --card-text: #333;
         }
 
         body {
             margin: 0;
             padding: 0;
             background-color: var(--bg-color);
-            color: var(--white-text);
-            font-family: 'Noto Serif Bengali', serif; /* সুন্দর বাংলা ফন্ট */
+            color: var(--gold-color);
+            font-family: 'Noto Serif Bengali', serif;
             transition: 0.4s;
             overflow-x: hidden;
         }
@@ -40,74 +42,74 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 5%;
+            padding: 15px 5%;
+            background-color: var(--bg-color);
             position: sticky;
             top: 0;
             z-index: 1001;
-            background: var(--bg-color);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
         }
 
         .logo {
             font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            font-weight: 700;
+            font-size: 1.1rem;
             text-decoration: none;
             cursor: pointer;
         }
-        .logo-gold { color: var(--gold-color); }
+        .logo-white { color: var(--white-text); }
 
-        .theme-toggle { cursor: pointer; font-size: 1.2rem; margin-left: auto; margin-right: 15px; }
+        .theme-toggle { cursor: pointer; font-size: 1.2rem; margin-left: auto; margin-right: 20px; }
 
         .menu-icon {
             cursor: pointer;
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            z-index: 1002;
+            gap: 6px;
         }
         .menu-icon span {
             display: block;
-            width: 25px;
+            width: 28px;
             height: 2px;
             background-color: var(--gold-color);
             transition: 0.3s;
         }
 
-        /* Side Menu */
+        /* Full Screen Overlay Menu */
         .nav-links {
             position: fixed;
             top: 0;
             right: -100%;
             height: 100vh;
-            width: 250px;
+            width: 100%;
+            max-width: 300px;
             background-color: var(--menu-bg);
             display: flex;
             flex-direction: column;
-            padding: 80px 30px;
-            transition: 0.4s;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+            padding: 80px 40px;
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1000;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
         }
         .nav-links.active { right: 0; }
         .nav-links a {
             color: var(--white-text);
             text-decoration: none;
-            font-size: 1.1rem;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            font-size: 1.2rem;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
             cursor: pointer;
+            font-family: 'Hind Siliguri', sans-serif;
         }
-        .nav-links a:hover { color: var(--gold-color); }
 
-        /* Content Sections */
+        /* Sections */
         .content-section {
             display: none;
-            padding: 40px 5%;
-            animation: fadeIn 0.6s ease;
+            padding: 20px 5%;
+            animation: fadeIn 0.5s ease;
         }
         .content-section.active { display: block; }
 
-        /* Home Page (Initial View) */
+        /* Home Page */
         #home-section {
             height: 80vh;
             display: flex;
@@ -116,45 +118,48 @@
             align-items: center;
             text-align: center;
         }
-        .main-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin: 0;
-        }
-        .sub-title { color: var(--gold-color); letter-spacing: 4px; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 10px; }
+        .main-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0; }
 
-        /* Tarjoma Cards Styling */
-        .tarjoma-container { max-width: 800px; margin: 0 auto; }
-        .note-card {
+        /* Tarjoma - Question Cards */
+        .note-container { max-width: 850px; margin: 0 auto; }
+        .q-card {
             background: var(--card-bg);
-            margin-bottom: 25px;
-            padding: 30px;
-            border-radius: 15px;
-            border-bottom: 3px solid var(--gold-color);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--gold-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .note-card h3 {
-            color: var(--gold-color);
+        .q-card h3 {
             margin-top: 0;
-            font-size: 1.4rem;
-            border-bottom: 1px dashed var(--gold-color);
+            font-size: 1.25rem;
+            color: var(--gold-color);
+            font-family: 'Hind Siliguri', sans-serif;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
             padding-bottom: 10px;
+            line-height: 1.5;
         }
-        .note-card p { line-height: 1.8; font-size: 1.05rem; }
+        .q-card p {
+            color: var(--card-text);
+            line-height: 1.8;
+            margin-bottom: 0;
+            font-size: 1.05rem;
+        }
         .arabic {
-            font-family: serif;
+            font-family: 'Times New Roman', serif;
             display: block;
             text-align: center;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin: 15px 0;
             color: var(--gold-color);
+            direction: rtl;
         }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 600px) {
-            .main-title { font-size: 2.2rem; }
+            .main-title { font-size: 2.5rem; }
+            .nav-links { width: 80%; }
         }
     </style>
 </head>
@@ -162,7 +167,7 @@
 
     <nav>
         <div class="logo" onclick="showSection('home-section')">
-            <span style="color: var(--white-text);">মূল</span> <span class="logo-gold">পৃষ্ঠা</span>
+            <span class="logo-white">মূল</span> <span class="logo-gold">পৃষ্ঠা</span>
         </div>
 
         <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀️</div>
@@ -172,8 +177,8 @@
         </div>
 
         <div class="nav-links" id="navLinks">
-            <a onclick="showSection('home-section')">হোম পৃষ্ঠা</a>
-            <a onclick="showSection('tarjoma-section')">তরজমা</a>
+            <a onclick="showSection('home-section')">মূল পাতা</a>
+            <a onclick="showSection('tarjoma-section')">তরজমা (নোট)</a>
             <a href="#">হাদীছ শরীফ</a>
             <a href="#">আরবি ২য়</a>
             <a href="#">বাংলা</a>
@@ -182,44 +187,59 @@
     </nav>
 
     <main id="home-section" class="content-section active">
-        <p class="sub-title">মাদ্রাসা নোট সংকলন</p>
+        <p style="letter-spacing: 4px; opacity: 0.7; font-size: 0.9rem;">মাদ্রাসা নোট সংকলন</p>
         <h1 class="main-title">
-            <span style="color: var(--white-text);">Madrasah</span> <span style="color: var(--gold-color);">Note</span>
+            <span class="logo-white">Madrasah</span> <span class="logo-gold">Note</span>
         </h1>
-        <p style="margin-top: 15px; color: var(--author-text); font-family: 'Playfair Display', serif;">By Enayet Karim & Khubaib Ahmad</p>
+        <p style="color: var(--author-text); font-family: 'Playfair Display', serif; margin-top: 10px;">By Enayet Karim & Khubaib Ahmad</p>
     </main>
 
     <section id="tarjoma-section" class="content-section">
-        <h2 style="text-align: center; color: var(--gold-color); margin-bottom: 40px; font-size: 2rem;">পবিত্র তরজমা ও নোট</h2>
-        
-        <div class="tarjoma-container">
-            <div class="note-card">
-                <h3>১. মক্কী ও মাদানী সূরা</h3>
-                <p>হিজরতের পূর্বে নাযিল হওয়া সূরাগুলো <strong>মক্কী</strong> (৮৬টি) এবং হিজরতের পরে নাযিল হওয়া সূরাগুলো <strong>মাদানী</strong> (২৮টি)।</p>
+        <div class="note-container">
+            
+            <div class="q-card">
+                <h3>১. মক্কী ও মাদানী সূরা বলতে কী বুঝায়?</h3>
+                <p>হিজরতের পূর্বে নাযিল হওয়া পবিত্র সূরাগুলো হলো মক্কী সূরা (৮৬টি)। আর হিজরতের পর নাযিল হওয়া সূরাগুলো হলো মাদানী সূরা (২৮টি)।</p>
             </div>
 
-            <div class="note-card">
-                <h3>৪. কাফিরদের সাথে বন্ধুত্ব</h3>
-                <p>কোনো মুসলমানের জন্য কাফিরদের বন্ধু হিসেবে গ্রহণ করা জায়েয নেই। হাদীছ শরীফে ইরশাদ হয়েছে:</p>
+            <div class="q-card">
+                <h3>২. তাফসীর ও তা'উয়ীল উনাদের মধ্যে পার্থক্য কী?</h3>
+                <p>তাফসীর হলো আমভাবে যেকোনো ব্যাখ্যা। আর তা'উয়ীল হলো খাছভাবে পবিত্র কুরআন শরীফের অন্তর্নিহিত গূঢ় ব্যাখ্যা যা মহান আল্লাহ পাক ও উনার হাবীব ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম উনারাই ভালো জানেন।</p>
+            </div>
+
+            <div class="q-card">
+                <h3>৩. গাজওয়া কাকে বলা হয়?</h3>
+                <p>যে সমস্ত জিহাদে স্বয়ং নূরে মুজাসসাম হাবীবুল্লাহ হুযূর পাক ছল্লাল্লাহু আলাইহি ওয়া সাল্লাম নিজে উপস্থিত ছিলেন, সেগুলোকে গাজওয়া বলা হয়। এটি মোট ৯টি।</p>
+            </div>
+
+            <div class="q-card">
+                <h3>৪. কাফিরদের বন্ধু হিসেবে গ্রহণের হুকুম কী?</h3>
+                <p>কোনো মুসলমানের জন্য কাফিরদের বন্ধু হিসেবে গ্রহণ করা জায়েয নেই। হাদীছ শরীফে আছে:</p>
                 <span class="arabic">اَلْمَرْأُ مَعَ مَنْ اَحَبَّ</span>
                 <p>অর্থাৎ যে যাকে মুহব্বত করবে সে তার অন্তর্ভুক্ত হবে।</p>
             </div>
 
-            <div class="note-card">
-                <h3>৮. সূরা ফাতিহা শরীফের ১০টি নাম</h3>
+            <div class="q-card">
+                <h3>৭. পবিত্র কুরআন শরীফের পরিসংখ্যান</h3>
+                <p>সূরা ১১৪টি, আয়াত ৬৬৬৬টি, রুকু ৫৪০টি, মঞ্জিল ৭টি, পারা ৩০টি এবং সিজদাহ আয়াত ১৪টি।</p>
+            </div>
+
+            <div class="q-card">
+                <h3>৮. সূরা ফাতিহা শরীফের ১০টি নাম কী কী?</h3>
                 <p>১. আল-ফাতিহা ২. উম্মুল কিতাব ৩. উম্মুল কুরআন ৪. আস-সাবউল মাছানি ৫. সূরাতুল হামদ ৬. সূরাতুছ ছলাত ৭. সূরাতুশ শিফা ৮. সূরাতুর রুকইয়াহ ৯. সূরাতুল আসাস ১০. আল-ওয়াফিয়াহ।</p>
             </div>
 
-            <div class="note-card">
-                <h3>১৫. বদর জিহাদ</h3>
-                <p>২য় হিজরীর ১৭ই রমাদ্বান শরীফে বদর জিহাদ সংঘটিত হয়। এতে ৩১৩ জন মুসলমান ১০০০ জন কাফিরের মোকাবিলা করে বিজয় লাভ করেন।</p>
+            <div class="q-card">
+                <h3>১৫. বদর জিহাদের সংক্ষিপ্ত তথ্য</h3>
+                <p>২য় হিজরীর ১৭ই রমাদ্বান শরীফে সংঘটিত হয়। মুসলমান ৩১৩ জন এবং কাফির ছিল ১০০০ জন। এতে মুসলমানরা বিজয় লাভ করেন।</p>
             </div>
 
-            <div class="note-card">
-                <h3>১৭. রিবো বা সুদ</h3>
-                <p>আল্লাহ পাক ইরশাদ করেন: <strong>"আল্লাহ ক্রয়-বিক্রয় হালাল করেছেন এবং সুদ হারাম করেছেন।"</strong> সুদের সাথে সংশ্লিষ্টদের জন্য রয়েছে ভয়াবহ পরিণাম।</p>
+            <div class="q-card">
+                <h3>১৭. রিবো (সুদ) এর হুকুম কী?</h3>
+                <p>আল্লাহ পাক ইরশাদ করেন: "আমি ব্যবসাকে হালাল করেছি এবং সুদকে হারাম করেছি।" সুদ খাওয়া কাট্টা কবীরা গুনাহ।</p>
             </div>
-        </div>
+            
+            </div>
     </section>
 
     <script>
@@ -227,19 +247,18 @@
             document.getElementById("navLinks").classList.toggle("active");
         }
 
-        // সেকশন পরিবর্তন করার আসল ম্যাজিক
         function showSection(sectionId) {
-            // সব সেকশন বন্ধ করো
+            // সব সেকশন থেকে active ক্লাস সরিয়ে ফেলা
             const sections = document.querySelectorAll('.content-section');
             sections.forEach(s => s.classList.remove('active'));
 
-            // যেটা সিলেক্ট করা হয়েছে সেটা দেখাও
+            // নির্দিষ্ট সেকশন দেখানো
             document.getElementById(sectionId).classList.add('active');
 
-            // মেনুটা বন্ধ করে দাও
+            // মেনু বন্ধ করা
             document.getElementById("navLinks").classList.remove("active");
 
-            // একদম উপরে স্ক্রল করো
+            // একদম উপরে স্ক্রল করা
             window.scrollTo(0, 0);
         }
 
@@ -255,7 +274,7 @@
             }
         }
 
-        // মেনুর বাইরে ক্লিক করলে মেনু বন্ধ করা
+        // মেনুর বাইরে ক্লিক করলে মেনু বন্ধ হওয়া
         document.addEventListener('click', function(event) {
             const navLinks = document.getElementById("navLinks");
             const menuIcon = document.querySelector(".menu-icon");
